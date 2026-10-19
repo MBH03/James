@@ -530,7 +530,7 @@ FAQ_ALL = [
  ("Do I need fishing experience?", "No. Beginners are always welcome. We provide hands-on instruction and teach all gear and techniques."),
  ("Can families and kids come along?", "Yes. Children are welcome and there is no minimum age, but we cannot take infants under 12 months because life jackets do not fit securely. We provide properly fitted life jackets, and children under 13 must wear one at all times in the boat."),
  ("What do I need to bring?", "Your Utah fishing license, warm layers or weather appropriate clothes, sunscreen, sunglasses, a hat, snacks or lunch for your group, and a cooler to take your fish home in. Bottled water and ice are on the boat. Please leave dogs at home."),
- ("Do I need a Utah fishing license?", "Yes. Each angler needs a valid Utah fishing license, which you buy yourself before the trip on the Utah Division of Wildlife Resources website. Please have it with you at the ramp."),
+ ("Do I need a Utah fishing license?", "Yes. Each angler needs a valid Utah fishing license, which you buy yourself before the trip at wildlifelicense.utah.gov. Adult 3 day licenses are $19 for residents and $44 for non-residents, and 365 day licenses are $40 and $120, but prices can change, so please confirm on the Utah wildlife license site. Please have your license with you at the ramp."),
  ("Do you require a deposit?", "Yes. A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle, and the balance is due the morning of your trip."),
  ("What is your cancellation and weather policy?", "Cancel 3 or more days ahead for a full refund or a free reschedule. Cancellations within 3 days forfeit the deposit unless we can rebook your date. We fish in rain or shine, and if we cancel for lightning, high winds or unsafe conditions you can choose a full refund or a free reschedule."),
  ("What time do trips start and where do we meet?", "We meet you at the lake, not in town. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. When you book, you receive an exact Google Maps pin for your boat ramp."),
@@ -712,8 +712,12 @@ def rates_page():
 <ul class="know"><li>Your Utah fishing license</li><li>Weather appropriate clothes and warm layers</li><li>Sunscreen, sunglasses and a hat</li><li>Snacks or lunch for your group</li><li>A cooler to take your fish home in</li></ul>
 <p>Please leave dogs at home. Because of insurance requirements and open hooks in a small boat, we cannot accommodate dogs.</p></div>
 <div><h2>Fishing license</h2>
-<p>Each angler needs a valid Utah fishing license and is responsible for buying it before the trip. Licenses are sold online at the Utah Division of Wildlife Resources website, and you should have yours with you at the ramp.</p>
-<p>Utah adult license fees we have seen are $19 for a 3 day resident license, $40 for a 365 day resident license, $44 for a 3 day non-resident license and $120 for a 365 day non-resident license. Check the Division of Wildlife Resources for current prices.</p></div></div></section>
+<p>Each angler needs a valid Utah fishing license and is responsible for buying it before the trip. Please have yours with you at the ramp.</p>
+<div class="tablewrap"><table class="spt rt"><thead><tr><th>Adult license</th><th>Resident</th><th>Non-resident</th></tr></thead><tbody>
+<tr><th scope="row">3 day</th><td>$19</td><td>$44</td></tr>
+<tr><th scope="row">365 day</th><td>$40</td><td>$120</td></tr></tbody></table></div>
+<p class="note">Prices can change without notice, and youth and senior rates differ. Please confirm current prices on the Utah wildlife license site before you buy.</p>
+<p><a class="btn" href="https://wildlifelicense.utah.gov/hflo/main/serv1/index.html?server=serv1"><span>Buy a Utah fishing license</span><i>&rarr;</i></a></p></div></div></section>
 <section><div class="wrap two"><div>
 <h2>Deposit and payment</h2>
 <p>A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle. The remaining balance is due the morning of your trip.</p>
