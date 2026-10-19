@@ -6,7 +6,7 @@ Change BASE when the site moves to a custom domain, then re-run.
 """
 import json, html, datetime, pathlib
 
-BASE = "https://firsttimemanager1-png.github.io/James/"
+BASE = "https://mbh03.github.io/James/"
 PHONE_DISPLAY, PHONE_TEL, EMAIL = "(435) 592-0680", "+14355920680", "henrieoutfitters@gmail.com"
 INSTAGRAM = "https://www.instagram.com/henrieoutfitters/"
 TODAY = datetime.date.today().isoformat()
@@ -103,6 +103,7 @@ def lake_page(l):
     cur = ' aria-current="page"'
     dd_items = "".join(f'<a href="{o["slug"]}.html"{cur if o["slug"] == l["slug"] else ""}>{E(o["name"])}</a>' for o in LAKES)
     others = "".join(f'<li><a href="{o["slug"]}.html">{E(o["name"])}</a></li>' for o in LAKES if o["slug"] != l["slug"])
+    park_links = "".join(f'<p>Visiting {E(x["name"])}? See <a href="../{x["slug"]}.html">{E(x["h1"].lower().replace("fishing near", "fishing near"))}</a>.</p>' for x in PARK_FOR_LAKE.get(l["slug"], []))
     fish = "".join(f"<li>{E(s)}</li>" for s in l["species"])
     faq_html = "".join(f"<details open><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in qa)
     graph = [
@@ -114,7 +115,7 @@ def lake_page(l):
        "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in qa]},
       {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Henrie Outfitters", "item": BASE},
-        {"@type": "ListItem", "position": 2, "name": "Fishing lakes", "item": BASE + "#lakes"},
+        {"@type": "ListItem", "position": 2, "name": HUB["label"], "item": f"{BASE}{HUB['slug']}.html"},
         {"@type": "ListItem", "position": 3, "name": l["name"], "item": url}]},
     ]
     book = f"{BASE}?lake={l['name'].replace(' ', '%20')}#contact"
@@ -142,10 +143,10 @@ def lake_page(l):
 </head>
 <body>
 <header class="nav"><a class="brand" href="../"><img src="../assets/logo-96.webp" alt="Henrie Outfitters LLC logo" width="44" height="44">Henrie Outfitters</a>
-<nav><div class="dd"><a class="ddlink" href="../#lakes">Lakes</a><button class="ddbtn" type="button" aria-label="Show all lakes" aria-expanded="false">&#9662;</button><div class="ddmenu"><a href="../#lakes">All lakes</a>{dd_items}</div></div><a href="tel:{PHONE_TEL}">Call {PHONE_DISPLAY}</a><a class="book" href="{book}">Book now &rarr;</a></nav></header>
+<nav><div class="dd"><a class="ddlink" href="../{HUB["slug"]}.html">Lakes</a><button class="ddbtn" type="button" aria-label="Show all lakes" aria-expanded="false">&#9662;</button><div class="ddmenu"><a href="../{HUB["slug"]}.html">All lakes</a>{dd_items}</div></div><a href="tel:{PHONE_TEL}">Call {PHONE_DISPLAY}</a><a class="book" href="{book}">Book now &rarr;</a></nav></header>
 <main>
 <section class="hero{' photo' if l['slug']=='panguitch-lake' else ''}"><div class="wrap">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a> / <a href="../#lakes">Fishing lakes</a> / <span>{E(l["name"])}</span></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a> / <a href="../{HUB["slug"]}.html">{E(HUB["label"])}</a> / <span>{E(l["name"])}</span></nav>
 <p class="kicker">{E(l["angle"])} &middot; {E(l["where"])}</p>
 <h1>Guided fishing trips at {E(l["name"])}</h1>
 <p class="sub">{E(l["hook"])}</p>
@@ -157,11 +158,13 @@ def lake_page(l):
 <h3>Why fish {E(l["name"])}</h3><p>{E(l["why"])}</p>
 {details_html}
 <p class="guide">Guided by James Henrie, owner of Henrie Outfitters LLC. Call <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> or email <a href="mailto:{EMAIL}">{EMAIL}</a> to plan a trip.</p></div>
-<div><h2>What you can catch</h2><ul class="fish">{fish}</ul>
+<div><h2>Fish you can catch at {E(l["name"])}</h2><ul class="fish">{fish}</ul>
 <p class="note">{E(l["access"])}</p></div>
 </div></section>
 <section class="alt"><div class="wrap"><h2>Questions about {E(l["name"])}</h2>{faq_html}</div></section>
-<section><div class="wrap"><h2>Other lakes we fish</h2><ul class="others">{others}</ul>
+<section><div class="wrap"><h2>Other Southern Utah lakes we fish</h2><ul class="others">{others}</ul>
+<p>See <a href="../{HUB["slug"]}.html">all guided fishing trips in Southern Utah</a>.</p>
+{park_links}
 <p><a class="btn" href="{book}"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
 </main>
 <footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
@@ -248,6 +251,264 @@ def photos_page():
 </html>
 '''
 
+
+# ---------- Southern Utah hub + species landing pages ----------
+HUB = dict(slug="guided-fishing-southern-utah", label="Guided fishing in Southern Utah")
+SPECIES_PAGES = [
+ dict(slug="bass-fishing-southern-utah", h1="Guided Bass Fishing in Southern Utah", label="Bass fishing",
+      short="bass", match=lambda s: "bass" in s.lower(),
+      intro="Southern Utah has some of the most varied bass fishing in the West: largemouth in red rock reservoirs, striped bass schooling in the canyons of Lake Powell, and smallmouth in the big water. Henrie Outfitters guides bass trips at four lakes."),
+ dict(slug="trout-fishing-southern-utah", h1="Guided Trout Fishing in Southern Utah", label="Trout fishing",
+      short="trout", match=lambda s: "trout" in s.lower() or "splake" in s.lower(),
+      intro="From cold, forested mountain lakes to trophy trout water, Southern Utah offers rainbow, brook, cutthroat, tiger and lake trout. Henrie Outfitters guides trout trips at four lakes."),
+]
+
+def lakes_with(match):
+    return [l for l in LAKES if any(match(s) for s in l["species"])]
+
+def species_table():
+    order = []
+    for l in LAKES:
+        for s in l["species"]:
+            if s not in order: order.append(s)
+    rows = ""
+    for s in order:
+        links = ", ".join(f'<a href="lakes/{l["slug"]}.html">{E(l["name"])}</a>' for l in LAKES if s in l["species"])
+        rows += f"<tr><th scope=\"row\">{E(s)}</th><td>{links}</td></tr>"
+    return f'<div class="tablewrap"><table class="spt"><thead><tr><th>Fish</th><th>Where to catch it with a guide</th></tr></thead><tbody>{rows}</tbody></table></div>'
+
+def root_page(slug, title, desc, h1, kicker, sub, body, graph, crumb_label, cta="Book a guided trip", photo=True):
+    url = f"{BASE}{slug}.html"
+    dd_items = "".join(f'<a href="lakes/{o["slug"]}.html">{E(o["name"])}</a>' for o in LAKES)
+    g = graph + [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Henrie Outfitters", "item": BASE},
+        {"@type": "ListItem", "position": 2, "name": crumb_label, "item": url}]}]
+    crumbs = f'<a href="./">Home</a> / <span>{E(crumb_label)}</span>'
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{E(title)}</title>
+<meta name="description" content="{E(desc)}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Henrie Outfitters">
+<meta property="og:title" content="{E(title)}">
+<meta property="og:description" content="{E(desc)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{BASE}assets/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo-96.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lake.css">
+{"".join(jl(x) for x in g)}
+</head>
+<body>
+<header class="nav"><a class="brand" href="./"><img src="assets/logo-96.webp" alt="Henrie Outfitters LLC logo" width="44" height="44">Henrie Outfitters</a>
+<nav><div class="dd"><a class="ddlink" href="{HUB["slug"]}.html">Lakes</a><button class="ddbtn" type="button" aria-label="Show all lakes" aria-expanded="false">&#9662;</button><div class="ddmenu"><a href="{HUB["slug"]}.html">All lakes</a>{dd_items}</div></div><a href="tel:{PHONE_TEL}">Call {PHONE_DISPLAY}</a><a class="book" href="./#contact">Book now &rarr;</a></nav></header>
+<main>
+<section class="hero{" photo" if photo else ""}"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb">{crumbs}</nav>
+<p class="kicker">{E(kicker)}</p>
+<h1>{E(h1)}</h1>
+<p class="sub">{E(sub)}</p>
+<a class="btn" href="./#contact"><span>{E(cta)}</span><i>&rarr;</i></a>
+</div></section>
+{body}
+</main>
+<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
+<p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> &middot; <a href="mailto:{EMAIL}">{EMAIL}</a> &middot; <a href="{INSTAGRAM}">Instagram</a></p></div></footer>
+<script>document.querySelector(".ddbtn").addEventListener("click",function(){{var d=this.parentNode,o=d.classList.toggle("open");this.setAttribute("aria-expanded",o)}});document.addEventListener("click",function(e){{var d=document.querySelector(".dd");if(d&&!d.contains(e.target)){{d.classList.remove("open")}}}});</script>
+</body>
+</html>
+'''
+
+def lake_cards_html(lakes):
+    out = ""
+    for l in lakes:
+        tags = "".join(f"<li>{E(s)}</li>" for s in l["species"])
+        out += (f'<article class="lcard"><p class="eyebrow">{E(l["angle"])}</p>'
+                f'<h3><a href="lakes/{l["slug"]}.html">Guided fishing at {E(l["name"])}</a></h3>'
+                f'<p>{E(l["hook"])}</p><ul class="fish">{tags}</ul>'
+                f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+    return f'<div class="lgrid">{out}</div>'
+
+HUB_FAQ = [
+ ("Where does Henrie Outfitters guide fishing trips in Southern Utah?",
+  "Henrie Outfitters guides fishing trips at seven Southern Utah lakes: Panguitch Lake, Sand Hollow Reservoir, Lake Powell, Navajo Lake, Gunlock Reservoir, Quail Creek Reservoir and Fish Lake."),
+ ("What is the best lake in Southern Utah for bass fishing?",
+  "For numbers of largemouth bass in a red rock setting, start with Sand Hollow Reservoir. Gunlock Reservoir is a smaller, more intimate bass lake, Quail Creek Reservoir can produce big largemouth, and Lake Powell offers striped, smallmouth and largemouth bass."),
+ ("Where can I catch trophy trout in Southern Utah?",
+  "Panguitch Lake is built around trout, with rainbow, cutthroat and tiger trout. Fish Lake is the place to go deep for trophy lake trout (Mackinaw). Navajo Lake is a cool, forested mountain lake with rainbow and brook trout."),
+ ("Where can I catch striped bass in Southern Utah?",
+  "Lake Powell. Guided trips run the canyons, find the bait and cast to striped bass, which can school and chase bait to the surface."),
+ ("What is included on a guided fishing trip?",
+  "A full 8 hour guided fishing trip, all fishing gear and equipment, lunch, customized start and end times to fit your schedule, and expert instruction and local knowledge. It suits beginners, families and experienced anglers."),
+ ("How do I book a guided fishing trip in Southern Utah?",
+  f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form on the Henrie Outfitters website. Customized trip packages are available."),
+]
+
+def faq_html_block(qa):
+    return "".join(f"<details open><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in qa)
+
+def faq_ld(qa):
+    return {"@context": "https://schema.org", "@type": "FAQPage",
+            "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in qa]}
+
+def service_ld(name, desc, url, lakes):
+    return {"@context": "https://schema.org", "@type": "Service", "name": name, "serviceType": "Guided fishing trip",
+            "description": desc, "url": url,
+            "areaServed": [{"@type": "AdministrativeArea", "name": "Southern Utah"}] + [{"@type": "Place", "name": f"{l['name']}, Utah"} for l in lakes],
+            "provider": {**BUSINESS, "founder": {"@type": "Person", "name": "James Henrie"}}}
+
+def hub_page():
+    title = "Guided Fishing Trips in Southern Utah | 7 Lakes | Henrie Outfitters"
+    desc = "Guided fishing in Southern Utah: bass, striped bass, trout and Mackinaw at Sand Hollow, Lake Powell, Navajo Lake, Panguitch Lake, Gunlock, Quail Creek and Fish Lake. Call (435) 592-0680."
+    body = f'''<section><div class="wrap"><h2>Seven lakes, one local guide</h2>
+<p class="lead">Henrie Outfitters LLC runs guided fishing trips across Southern Utah with owner and guide James Henrie, who has 25 years of outdoor experience. Each lake is a different kind of fishing, so you can choose the experience that fits the fish you want.</p>
+{lake_cards_html(LAKES)}</div></section>
+<section class="alt"><div class="wrap"><h2>What you can catch, and where</h2>
+{species_table()}
+<p>Visiting a national park? See fishing near <a href="fishing-near-zion-national-park.html">Zion</a>, <a href="fishing-near-bryce-canyon.html">Bryce Canyon</a> and <a href="fishing-near-capitol-reef.html">Capitol Reef</a>.</p>
+<p>Looking for one kind of fishing? See our guides to <a href="{SPECIES_PAGES[0]["slug"]}.html">bass fishing in Southern Utah</a> and <a href="{SPECIES_PAGES[1]["slug"]}.html">trout fishing in Southern Utah</a>.</p></div></section>
+<section><div class="wrap"><h2>Which lake should I fish?</h2>
+<ul class="know">
+<li><strong>Numbers of largemouth bass:</strong> <a href="lakes/sand-hollow-reservoir.html">Sand Hollow Reservoir</a>, with year round bass fishing among red rock.</li>
+<li><strong>A quieter bass lake:</strong> <a href="lakes/gunlock-reservoir.html">Gunlock Reservoir</a>, smaller water where you can slow down and learn where the bass hold.</li>
+<li><strong>Big largemouth in clear water:</strong> <a href="lakes/quail-creek-reservoir.html">Quail Creek Reservoir</a>, where stocked trout help grow trophy bass.</li>
+<li><strong>Striped bass and the most variety:</strong> <a href="lakes/lake-powell.html">Lake Powell</a>, an enormous canyon system.</li>
+<li><strong>Trophy trout:</strong> <a href="lakes/panguitch-lake.html">Panguitch Lake</a>, built around trout including tiger trout and cutthroat.</li>
+<li><strong>A cool, forested mountain escape:</strong> <a href="lakes/navajo-lake.html">Navajo Lake</a>, with brook and rainbow trout above 9,000 feet.</li>
+<li><strong>Trophy lake trout (Mackinaw):</strong> <a href="lakes/fish-lake.html">Fish Lake</a>, deep water fishing in Utah’s high country.</li>
+</ul></div></section>
+<section class="alt"><div class="wrap"><h2>How a guided trip works</h2>
+<p>A guided fishing trip with Henrie Outfitters is a full 8 hour day on the water. All fishing gear and equipment and lunch are provided, start and end times are customized to fit your schedule, and you get expert instruction and local knowledge. Trips suit beginners, families and experienced anglers, and customized trip packages are available.</p>
+<p><a class="btn" href="./#contact"><span>Book a guided fishing trip</span><i>&rarr;</i></a></p></div></section>
+<section><div class="wrap"><h2>Southern Utah fishing questions</h2>{faq_html_block(HUB_FAQ)}</div></section>'''
+    graph = [service_ld("Guided fishing trips in Southern Utah", desc, f"{BASE}{HUB['slug']}.html", LAKES), faq_ld(HUB_FAQ),
+             {"@context": "https://schema.org", "@type": "ItemList", "name": "Southern Utah lakes with guided fishing trips",
+              "itemListElement": [{"@type": "ListItem", "position": i, "name": l["name"], "url": f"{BASE}lakes/{l['slug']}.html"} for i, l in enumerate(LAKES, 1)]}]
+    return root_page(HUB["slug"], title, desc, "Guided Fishing Trips in Southern Utah", "Seven lakes · Bass, striped bass, trout and Mackinaw",
+                     "Local expert James Henrie guides bass, striped bass, trout and Mackinaw trips at seven Southern Utah lakes.", body, graph, HUB["label"])
+
+def species_page(sp):
+    lakes = lakes_with(sp["match"])
+    names = ", ".join(l["name"] for l in lakes[:-1]) + " and " + lakes[-1]["name"]
+    title = f"{sp['h1']} | Henrie Outfitters"
+    desc = f"{sp['label']} with a local guide in Southern Utah: {names}. Call {PHONE_DISPLAY} to book."
+    sections = ""
+    for l in lakes:
+        fish = [s for s in l["species"] if sp["match"](s)]
+        sections += (f'<article class="spsec"><h2><a href="lakes/{l["slug"]}.html">{E(sp["short"].title())} fishing at {E(l["name"])}</a></h2>'
+                     f'<p class="eyebrow">{E(l["tagline"])}</p><p>{E(l["experience"][0])}</p><p><strong>Why fish it:</strong> {E(l["why"])}</p>'
+                     f'<ul class="fish">{"".join(f"<li>{E(s)}</li>" for s in fish)}</ul>'
+                     f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+    qa = [(f"Where can I go {sp['short']} fishing in Southern Utah with a guide?", f"Henrie Outfitters guides {sp['short']} fishing trips at {names}."),
+          ("How do I book?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form on the Henrie Outfitters website.")]
+    body = f'''<section><div class="wrap"><h2>{E(sp["label"])} at {len(lakes)} lakes</h2><p class="lead">{E(sp["intro"])}</p></div></section>
+<section class="alt"><div class="wrap sps">{sections}</div></section>
+<section><div class="wrap"><h2>Also see</h2><p><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a> &middot; <a href="{[x for x in SPECIES_PAGES if x is not sp][0]["slug"]}.html">{E([x for x in SPECIES_PAGES if x is not sp][0]["label"])} in Southern Utah</a></p>
+<p><a class="btn" href="./#contact"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>'''
+    graph = [service_ld(f"Guided {sp['short']} fishing in Southern Utah", desc, f"{BASE}{sp['slug']}.html", lakes), faq_ld(qa)]
+    return root_page(sp["slug"], title, desc, sp["h1"], "Southern Utah", f"Guided {sp['short']} trips at {names}.", body, graph, sp["label"])
+
+
+# ---------- National park trip pages (Zion, Bryce Canyon, Capitol Reef) ----------
+# Facts that still need James's confirmation are marked CONFIRM in HTML comments.
+TRIP_INCLUDES = ("A guided trip with Henrie Outfitters is a full 8 hour day on the water with owner and guide James Henrie. "
+                 "All fishing gear and equipment and lunch are provided, start and end times are customized to fit your schedule, "
+                 "and you get expert instruction and local knowledge. Beginners, families and experienced anglers are all welcome.")
+
+PARKS = [
+ dict(slug="fishing-near-zion-national-park", short="Zion", name="Zion National Park",
+      title="Fishing Near Zion National Park | Guided Trips | Henrie Outfitters",
+      desc="Guided fishing trips on lakes near Zion National Park: bass at Sand Hollow, Quail Creek and Gunlock, mountain trout at Navajo Lake. Call (435) 592-0680.",
+      h1="Fishing Near Zion National Park", kicker="Zion region · Southern Utah",
+      sub="Take a rest day from the trails with a guided day on a red rock reservoir or a cool mountain lake.",
+      outside=("Zion National Park is known for canyon hiking, not fishing. The guided fishing trips on this page are on lakes in the region around the park, "
+               "not inside it. If you are planning a Zion trip, a guided fishing day gives you a slower day on the water between hikes. "
+               "Check the National Park Service website for current rules about fishing inside the park."),
+      lakes_intro="Many Zion visitors stay in or near St. George or Springdale. Three of our lakes are on the St. George side of Zion, and one is a cooler mountain alternative.",
+      lakes=[("sand-hollow-reservoir", "The first lake to look at if you want numbers of largemouth bass and red rock scenery that matches the rest of your trip."),
+             ("quail-creek-reservoir", "A very good option for bass, crappie, bluegill and rainbow trout, with good facilities and boat ramps."),
+             ("gunlock-reservoir", "A smaller red rock lake that is quieter and easier to learn. When conditions are right, Gunlock Falls spills over the dam."),
+             ("navajo-lake", "The cooler, forested alternative if you want a break from desert heat, with brook and rainbow trout.")],
+      rest=("After days of hiking and shuttle lines, a guided fishing day is a different pace: a boat, a lake, and someone else doing the planning. "
+            "You can start with no experience and still catch fish, and the day is built around your group."),
+      faq=[("Can you fish inside Zion National Park?", "This page covers guided trips on lakes near the park, not fishing inside it. Check the National Park Service website for current rules inside Zion."),
+           ("Which lake is best for a Zion visitor?", "For bass and red rock scenery, start with Sand Hollow Reservoir. Gunlock Reservoir is smaller and quieter, Quail Creek Reservoir offers bass, crappie, bluegill and rainbow trout, and Navajo Lake is the choice for cooler mountain trout fishing."),
+           ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included.")],
+      also=["bass-fishing-southern-utah", "trout-fishing-southern-utah"],
+      confirm="CONFIRM WITH JAMES: meeting points, half-day option, minimum age, group size, license requirements, which lakes he runs for Zion visitors, seasons."),
+ dict(slug="fishing-near-bryce-canyon", short="Bryce Canyon", name="Bryce Canyon National Park",
+      title="Fishing Near Bryce Canyon | Guided Trout Trips | Henrie Outfitters",
+      desc="Guided trout fishing near Bryce Canyon National Park on Panguitch Lake, with rainbow, cutthroat and tiger trout. Call (435) 592-0680 to book a fishing day.",
+      h1="Fishing Near Bryce Canyon", kicker="Bryce Canyon region · Southern Utah",
+      sub="Trade the hoodoos for a day on a mountain trout lake with rainbow, cutthroat and tiger trout.",
+      outside=("Bryce Canyon National Park is famous for its amphitheaters of hoodoos, not for fishing. Our guided fishing trips for Bryce visitors are on Panguitch Lake "
+               "and other mountain lakes in the same part of Southern Utah, outside the park. Check the National Park Service website for current rules about fishing inside the park."),
+      lakes_intro="Panguitch Lake is the lake we'd start with for a Bryce Canyon trip. Navajo Lake is a second mountain option.",
+      lakes=[("panguitch-lake", "Built around trout, with rainbow, cutthroat and tiger trout, good boat access, and a name that means ‘Big Fish’. This is where you go to look for a genuinely large Southern Utah trout."),
+             ("navajo-lake", "A cold, quiet, forested lake with rainbow and brook trout, and a high-country feel that suits a break from the park crowds.")],
+      rest=("Bryce Canyon days are full of short hikes and viewpoints. A guided trout day on the water makes a slower, quieter contrast, and it works for families "
+            "as well as for anglers who want to chase bigger fish."),
+      faq=[("Can you fish in Bryce Canyon National Park?", "This page covers guided trips on lakes near the park, not fishing inside it. Check the National Park Service website for current rules."),
+           ("What fish can I catch near Bryce Canyon?", "On Panguitch Lake, rainbow, cutthroat and tiger trout. On Navajo Lake, rainbow and brook trout."),
+           ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included.")],
+      also=["trout-fishing-southern-utah"],
+      confirm="CONFIRM WITH JAMES: meeting points, early-start options for visitors, seasons for Panguitch Lake, whether Navajo Lake is offered from this side."),
+ dict(slug="fishing-near-capitol-reef", short="Capitol Reef", name="Capitol Reef National Park",
+      title="Fishing Near Capitol Reef National Park | Henrie Outfitters",
+      desc="Guided fishing near Capitol Reef National Park: trophy lake trout at Fish Lake and variety on Lake Powell. Call (435) 592-0680 to book a fishing day.",
+      h1="Fishing Near Capitol Reef", kicker="Capitol Reef region · Southern Utah",
+      sub="Go deep for a trophy Mackinaw at Fish Lake, or add variety on Lake Powell.",
+      outside=("Capitol Reef National Park is known for its red rock cliffs and the Waterpocket Fold, not for fishing. Our guided trips for Capitol Reef visitors are on lakes "
+               "in the surrounding region, outside the park. Check the National Park Service website for current rules about fishing inside the park."),
+      lakes_intro="Two of our lakes fit a Capitol Reef trip. They are very different days, so pick the one that matches what you want from the water.",
+      lakes=[("fish-lake", "A serious trout destination, with lake trout (Mackinaw), splake, rainbow and cutthroat. This is deep-water hunting for a fish that can weigh tens of pounds, in Utah’s high country. In winter the lake becomes an ice fishing destination."),
+             ("lake-powell", "The biggest variety in Southern Utah: striped bass, smallmouth and largemouth bass, walleye, crappie, catfish and bluegill. Best fished by boat. For Capitol Reef visitors it is a longer day, so ask us which fits your plans.")],
+      rest=("Capitol Reef is one of the quieter national parks, and a guided fishing day fits that pace. Fish Lake is the trophy-hunting day, and Lake Powell is the "
+            "canyon-variety day. Either one gives you a full day outdoors without the planning."),
+      faq=[("Can you fish in Capitol Reef National Park?", "This page covers guided trips on lakes in the region, not fishing inside the park. Check the National Park Service website for current rules."),
+           ("What can I catch at Fish Lake?", "Lake trout (Mackinaw), splake, rainbow trout, cutthroat trout and other trout."),
+           ("Can I fish at Fish Lake in winter?", "In winter, Fish Lake becomes an ice fishing destination. Contact us to ask about winter trips.")],
+      also=["trout-fishing-southern-utah"],
+      confirm="CONFIRM WITH JAMES: distances and logistics from the Torrey side, whether Lake Powell is offered from this side, winter trip availability, meeting points."),
+]
+
+def park_page(pk):
+    lake = {l["slug"]: l for l in LAKES}
+    cards = ""
+    for slug, why in pk["lakes"]:
+        l = lake[slug]
+        tags = "".join(f"<li>{E(s)}</li>" for s in l["species"])
+        cards += (f'<article class="lcard"><p class="eyebrow">{E(l["angle"])}</p>'
+                  f'<h3><a href="lakes/{l["slug"]}.html">Guided fishing at {E(l["name"])}</a></h3>'
+                  f'<p>{E(why)}</p><ul class="fish">{tags}</ul>'
+                  f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+    others = [x for x in PARKS if x is not pk]
+    also = "".join(f'<li><a href="{x["slug"]}.html">Fishing near {E(x["short"])}</a></li>' for x in others)
+    also += "".join(f'<li><a href="{s}.html">{E(next(sp["label"] for sp in SPECIES_PAGES if sp["slug"] == s))} in Southern Utah</a></li>' for s in pk["also"])
+    also += f'<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>'
+    body = f"""<!-- {pk["confirm"]} -->
+<section><div class="wrap"><h2>Fishing outside the park</h2><p class="lead">{E(pk["outside"])}</p></div></section>
+<section class="alt"><div class="wrap"><h2>Lakes that fit a {E(pk["short"])} trip</h2><p class="lead">{E(pk["lakes_intro"])}</p><div class="lgrid">{cards}</div></div></section>
+<section><div class="wrap"><h2>A fishing day between park days</h2><p>{E(pk["rest"])}</p><p>{E(TRIP_INCLUDES)}</p>
+<p><a class="btn" href="./#contact"><span>Book a guided fishing day</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap"><h2>Questions about fishing near {E(pk["short"])}</h2>{faq_html_block(pk["faq"])}</div></section>
+<section><div class="wrap"><h2>Keep planning</h2><ul class="others">{also}</ul></div></section>"""
+    lakes_used = [lake[s] for s, _ in pk["lakes"]]
+    graph = [service_ld(f"Guided fishing trips near {pk['name']}", pk["desc"], f"{BASE}{pk['slug']}.html", lakes_used), faq_ld(pk["faq"])]
+    return root_page(pk["slug"], pk["title"], pk["desc"], pk["h1"], pk["kicker"], pk["sub"], body, graph, f"Fishing near {pk['short']}", photo=(pk["slug"] == "fishing-near-bryce-canyon"))
+
+PARK_FOR_LAKE = {}
+for _pk in PARKS:
+    for _s, _ in _pk["lakes"]:
+        PARK_FOR_LAKE.setdefault(_s, []).append(_pk)
+
 def dd_index():
     items = "".join(f'<a href="lakes/{l["slug"]}.html">{E(l["name"])}</a>' for l in LAKES)
     return ('<div class="dd"><a class="ddlink" href="#lakes">Lakes</a>'
@@ -279,7 +540,12 @@ def main():
     out = ROOT / "lakes"; out.mkdir(exist_ok=True)
     for l in LAKES:
         (out / f"{l['slug']}.html").write_text(lake_page(l), encoding="utf-8")
-    urls = [BASE, BASE + "photos.html"] + [f"{BASE}lakes/{l['slug']}.html" for l in LAKES]
+    (ROOT / f"{HUB['slug']}.html").write_text(hub_page(), encoding="utf-8")
+    for sp in SPECIES_PAGES:
+        (ROOT / f"{sp['slug']}.html").write_text(species_page(sp), encoding="utf-8")
+    for pk in PARKS:
+        (ROOT / f"{pk['slug']}.html").write_text(park_page(pk), encoding="utf-8")
+    urls = [BASE, f"{BASE}{HUB['slug']}.html"] + [f"{BASE}{sp['slug']}.html" for sp in SPECIES_PAGES] + [f"{BASE}{pk['slug']}.html" for pk in PARKS] + [BASE + "photos.html"] + [f"{BASE}lakes/{l['slug']}.html" for l in LAKES]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in urls) + "</urlset>\n"
     (ROOT / "sitemap.xml").write_text(sm)
@@ -291,6 +557,8 @@ def main():
       "## Guided fishing trips by lake", ""]
     for l in LAKES:
         lines.append(f"- [{l['name']}]({BASE}lakes/{l['slug']}.html): {l['tagline']}, {l['angle'].lower()}. {l['hook']}")
+    lines += ["", "## Guides by fish", "", f"- [Guided fishing in Southern Utah]({BASE}{HUB['slug']}.html): all seven lakes, what you can catch where, FAQ"] + [f"- [{sp['label']} in Southern Utah]({BASE}{sp['slug']}.html): {sp['intro']}" for sp in SPECIES_PAGES]
+    lines += ["", "## National park trips", ""] + [f"- [Fishing near {pk['short']}]({BASE}{pk['slug']}.html): {pk['sub']}" for pk in PARKS]
     lines += ["", "## Main site", "", f"- [Henrie Outfitters home]({BASE}): trips, lakes, guide, booking", f"- [Photos]({BASE}photos.html): photos from guided fishing trips", f"- [Instagram]({INSTAGRAM})", ""]
     (ROOT / "llms.txt").write_text("\n".join(lines))
     (ROOT / "photos.html").write_text(photos_page(), encoding="utf-8")

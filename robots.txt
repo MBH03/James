@@ -28,4 +28,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://firsttimemanager1-png.github.io/James/sitemap.xml
+Sitemap: https://mbh03.github.io/James/sitemap.xml
