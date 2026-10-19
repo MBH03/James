@@ -31,7 +31,7 @@ LAKES = [
       experience=["Panguitch is built around one thing: trout. You can troll open water for cruising fish, work shorelines and structure, or target tiger trout and cutthroat with more aggressive presentations. The lake\u2019s high elevation and open basin make changing weather and conditions part of the experience."],
       why="This is where you go when the goal is not simply catching trout but looking for a genuinely large Southern Utah trout.",
       species=["Rainbow trout", "Cutthroat trout", "Tiger trout"], access="Good boat access.",
-      details=["Private full day charter, up to 6 hours of fishing (about 8 hours with travel)", "All rods, tackle, bait and lures provided",
+      details=["Private full day charter, up to 6 hours of fishing (about 8 hours with travel, depending on where you are coming from)", "All rods, tackle, bait and lures provided",
                "Life jackets, bottled water and ice provided", "Fish cleaned and bagged with ice if you want to keep them",
                "Expert instruction and local knowledge", "Perfect for beginners, families and experienced anglers"]),
  dict(slug="gunlock-reservoir", name="Gunlock Reservoir", where="near St. George, Utah", town="St. George",
@@ -90,7 +90,7 @@ def faq(l):
     ]
     if l["slug"] == "panguitch-lake":
         qa.insert(2, ("What is included on a guided fishing trip at Panguitch Lake?",
-            "A private full day charter for just your group: up to 6 hours of fishing (plan on about 8 hours with travel), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."))
+            "A private full day charter for just your group: up to 6 hours of fishing (about 8 hours with travel, depending on where you are coming from), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."))
     return qa
 
 def sp_short(l):
@@ -359,7 +359,7 @@ HUB_FAQ = [
  ("Where can I catch striped bass in Southern Utah?",
   "Lake Powell. Guided trips run the canyons, find the bait and cast to striped bass, which can school and chase bait to the surface."),
  ("What is included on a guided fishing trip?",
-  "A private full day charter for just your group: up to 6 hours of fishing (plan on about 8 hours with travel), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge. It suits beginners, families and experienced anglers."),
+  "A private full day charter for just your group: up to 6 hours of fishing (about 8 hours with travel, depending on where you are coming from), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge. It suits beginners, families and experienced anglers."),
  ("How do I book a guided fishing trip in Southern Utah?",
   f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form on the Henrie Outfitters website. Customized trip packages are available."),
 ]
@@ -397,7 +397,7 @@ def hub_page():
 <li><strong>Trophy lake trout (Mackinaw):</strong> <a href="lakes/fish-lake.html">Fish Lake</a>, deep water fishing in Utah’s high country.</li>
 </ul></div></section>
 <section class="alt"><div class="wrap"><h2>How a guided trip works</h2>
-<p>A guided fishing trip with Henrie Outfitters is a private full day charter: up to 6 hours of fishing, and about 8 hours with travel. Rods, tackle, bait and lures, life jackets, bottled water and ice are included, and fish are cleaned and bagged with ice if you want to keep them. Trips suit beginners, families and experienced anglers. See <a href="rates-and-policies.html">rates and policies</a>.</p>
+<p>A guided fishing trip with Henrie Outfitters is a private full day charter: up to 6 hours of fishing, and about 8 hours with travel, depending on where you are coming from. Rods, tackle, bait and lures, life jackets, bottled water and ice are included, and fish are cleaned and bagged with ice if you want to keep them. Trips suit beginners, families and experienced anglers. See <a href="rates-and-policies.html">rates and policies</a>.</p>
 <p><a class="btn" href="./#contact"><span>Book a guided fishing trip</span><i>&rarr;</i></a></p></div></section>
 <section><div class="wrap"><h2>Southern Utah fishing questions</h2>{faq_html_block(HUB_FAQ)}</div></section>'''
     graph = [service_ld("Guided fishing trips in Southern Utah", desc, f"{BASE}{HUB['slug']}.html", LAKES), faq_ld(HUB_FAQ),
@@ -429,7 +429,7 @@ def species_page(sp):
 
 
 # ---------- National park trip pages (Zion, Bryce Canyon, Capitol Reef) ----------
-TRIP_INCLUDES = ("A guided trip with Henrie Outfitters is a private full day charter with owner and guide James Henrie: up to 6 hours of fishing, so plan on about 8 hours with travel. "
+TRIP_INCLUDES = ("A guided trip with Henrie Outfitters is a private full day charter with owner and guide James Henrie: up to 6 hours of fishing, so plan on about 8 hours with travel, depending on where you are coming from. "
                  "Your boat, rods, tackle, bait and lures, life jackets, bottled water and ice are included, and fish are cleaned and bagged with ice if you want to keep them. "
                  "Beginners, families and experienced anglers are all welcome.")
 
@@ -523,10 +523,10 @@ CEDAR = dict(slug="fishing-near-cedar-city-utah", short="Cedar City")
 FAQ_PAGE = dict(slug="fishing-trip-faqs", label="Fishing trip FAQs")
 
 FAQ_ALL = [
- ("What is included on a guided fishing trip?", "A private full day charter for just your group: up to 6 hours of fishing (plan on about 8 hours with travel), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."),
+ ("What is included on a guided fishing trip?", "A private full day charter for just your group: up to 6 hours of fishing (about 8 hours with travel, depending on where you are coming from), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."),
  ("How much does a guided fishing trip cost?", "Pricing is per boat, not per person, and every trip is a private charter for just your group. A full day is $1,050 for 1 to 2 anglers, $1,225 for 3 anglers and $1,400 for 4 anglers, which is the maximum per boat."),
- ("How long is a full day?", "A full day is up to 6 hours of fishing time. With travel to the lakes, plan for about an 8 hour experience."),
- ("Do you offer half day trips?", "We specialize in full day charters. Because of the 60 to 90 minute drive each way to our high elevation lakes, a full day gives you the most time on the water."),
+ ("How long is a full day?", "A full day is up to 6 hours of fishing time. With travel, plan for about 8 hours, depending on where you are coming from."),
+ ("Do you offer half day trips?", "We specialize in full day charters. Because of the travel to our lakes, a full day gives you the most time on the water."),
  ("Do I need fishing experience?", "No. Beginners are always welcome. We provide hands-on instruction and teach all gear and techniques."),
  ("Can families and kids come along?", "Yes. Children are welcome and there is no minimum age, but we cannot take infants under 12 months because life jackets do not fit securely. We provide properly fitted life jackets, and children under 13 must wear one at all times in the boat."),
  ("What do I need to bring?", "Your Utah fishing license, warm layers or weather appropriate clothes, sunscreen, sunglasses, a hat, snacks or lunch for your group, and a cooler to take your fish home in. Bottled water and ice are on the boat. Please leave dogs at home."),
@@ -687,7 +687,7 @@ RATES_PAGE = dict(slug="rates-and-policies", label="Rates and policies")
 
 RATES_QA = [
  ("How much does a guided fishing trip cost?", "Pricing is per boat, not per person. A full day is $1,050 for 1 to 2 anglers, $1,225 for 3 anglers and $1,400 for 4 anglers, which is the maximum per boat."),
- ("How long is a full day?", "Up to 6 hours of fishing time. With travel to the lakes, plan for about an 8 hour experience."),
+ ("How long is a full day?", "Up to 6 hours of fishing time. With travel, plan for about 8 hours, depending on where you are coming from."),
  ("Do you require a deposit?", "Yes. A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle, and the balance is due the morning of your trip."),
  ("What is your cancellation and weather policy?", "Cancel 3 or more days ahead for a full refund or a free reschedule. Cancellations within 3 days forfeit the deposit unless we can rebook your date. We fish in rain or shine, and if we cancel for lightning, high winds or unsafe conditions you can choose a full refund or a free reschedule."),
  ("Is there a minimum age?", "No minimum age, and children are welcome. We cannot take infants under 12 months because life jackets do not fit securely. Children under 13 must wear a life jacket at all times in the boat."),
@@ -698,7 +698,7 @@ def rates_page():
     title = "Rates and Policies | Guided Fishing Trips | Henrie Outfitters"
     desc = "Guided fishing rates, what's included, deposit, cancellation and weather policy, what to bring and license information for Henrie Outfitters in Cedar City, Utah. Call (435) 592-0680."
     body = f"""<section><div class="wrap"><h2>Rates</h2>
-<p class="lead">Every trip is a private charter for just your group, and all pricing is per boat, not per person. A full day is up to 6 hours of fishing time. With travel to the lakes, plan for about an 8 hour experience.</p>
+<p class="lead">Every trip is a private charter for just your group, and all pricing is per boat, not per person. A full day is up to 6 hours of fishing time. With travel, plan for about 8 hours, depending on where you are coming from.</p>
 <div class="tablewrap"><table class="spt rt"><thead><tr><th>Anglers</th><th>Full day, per boat</th></tr></thead><tbody>
 <tr><th scope="row">1 to 2 anglers</th><td>Starting at $1,050</td></tr>
 <tr><th scope="row">3 anglers</th><td>$1,225</td></tr>
@@ -729,7 +729,7 @@ def rates_page():
 <div><h2>Start times and meeting place</h2>
 <p>We meet you at the lake, not in town, to maximize your time fishing. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. We share the exact meeting location when you book. Depending on the season, we use different spots on each lake.</p>
 <h2>Half day trips</h2>
-<p>We specialize in full day charters. Because of the 60 to 90 minute drive each way to our high elevation lakes, a full day gives you the most time on the water and the best fishing experience.</p>
+<p>We specialize in full day charters. Because of the travel to our lakes, a full day gives you the most time on the water and the best fishing experience.</p>
 <h2>Groups and families</h2>
 <p>Every trip is a private charter. We host families, friends, corporate outings, bachelor parties and birthday celebrations. The maximum is 4 anglers per boat, and for larger groups we can coordinate multiple boats with other trusted local guides.</p>
 <h2>Kids, beginners and accessibility</h2>
