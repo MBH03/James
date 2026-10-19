@@ -1,6 +1,6 @@
 # Henrie Outfitters
 
-> Henrie Outfitters LLC offers guided fishing and hunting trips in Southern Utah, led by owner and local expert James Henrie (25 years of outdoor experience). Guided fishing trips are offered at seven Southern Utah lakes: Panguitch Lake, Sand Hollow Reservoir, Lake Powell, Navajo Lake, Gunlock Reservoir, Quail Creek Reservoir and Fish Lake.
+> Henrie Outfitters LLC offers guided fishing and hunting trips in Southern Utah, led by owner and local expert James Henrie (25 years of outdoor experience). Guided fishing trips are offered at six Southern Utah lakes: Panguitch Lake, Sand Hollow Reservoir, Lake Powell, Gunlock Reservoir, Quail Creek Reservoir and Fish Lake.
 
 Book: call or text (435) 592-0680, email henrieoutfitters@gmail.com, or use the form at https://mbh03.github.io/James/#contact. Customized trip packages are available.
 
@@ -8,7 +8,6 @@ Book: call or text (435) 592-0680, email henrieoutfitters@gmail.com, or use the 
 
 - [Sand Hollow Reservoir](https://mbh03.github.io/James/lakes/sand-hollow-reservoir.html): Red Rock Bass Factory, desert bass hunting. Chase largemouth bass in crystal blue water surrounded by Southern Utah red rock.
 - [Lake Powell](https://mbh03.github.io/James/lakes/lake-powell.html): Striper Canyon, canyon striper adventure. Run the canyons, find the bait and watch the stripers explode on the surface.
-- [Navajo Lake](https://mbh03.github.io/James/lakes/navajo-lake.html): Lava Tube Trout Lake, high alpine trout escape. High alpine trout fishing on a lake where the water disappears underground.
 - [Panguitch Lake](https://mbh03.github.io/James/lakes/panguitch-lake.html): Big Fish Reboot, trophy trout hunting. Fish the lake named ‘Big Fish’ for Southern Utah’s trophy trout.
 - [Gunlock Reservoir](https://mbh03.github.io/James/lakes/gunlock-reservoir.html): Comeback Waterfall Bass, intimate red rock bass fishing. Fish a red rock bass lake that came back from the brink.
 - [Quail Creek Reservoir](https://mbh03.github.io/James/lakes/quail-creek-reservoir.html): Record Factory, clear water trophy bass. A desert reservoir where stocked trout help grow trophy bass.
@@ -16,20 +15,20 @@ Book: call or text (435) 592-0680, email henrieoutfitters@gmail.com, or use the 
 
 ## Guides by fish
 
-- [Guided fishing in Southern Utah](https://mbh03.github.io/James/guided-fishing-southern-utah.html): all seven lakes, what you can catch where, FAQ
+- [Guided fishing in Southern Utah](https://mbh03.github.io/James/guided-fishing-southern-utah.html): all six lakes, what you can catch where, FAQ
 - [Bass fishing in Southern Utah](https://mbh03.github.io/James/bass-fishing-southern-utah.html): Southern Utah has some of the most varied bass fishing in the West: largemouth in red rock reservoirs, striped bass schooling in the canyons of Lake Powell, and smallmouth in the big water. Henrie Outfitters guides bass trips at four lakes.
-- [Trout fishing in Southern Utah](https://mbh03.github.io/James/trout-fishing-southern-utah.html): From cold, forested mountain lakes to trophy trout water, Southern Utah offers rainbow, brook, cutthroat, tiger and lake trout. Henrie Outfitters guides trout trips at four lakes.
+- [Trout fishing in Southern Utah](https://mbh03.github.io/James/trout-fishing-southern-utah.html): From cold mountain lakes to trophy trout water, Southern Utah offers rainbow, cutthroat, tiger and lake trout. Henrie Outfitters guides trout trips at three lakes.
 
 ## Planning pages
 
 - [Fishing on a Utah national parks trip](https://mbh03.github.io/James/fishing-utah-national-parks.html): a guided fishing day between park days (Zion, Bryce Canyon, Capitol Reef)
 - [Fishing near St. George](https://mbh03.github.io/James/fishing-near-st-george-utah.html): compare Sand Hollow, Quail Creek and Gunlock
-- [Fishing near Cedar City](https://mbh03.github.io/James/fishing-near-cedar-city-utah.html): mountain trout at Navajo Lake and Panguitch Lake
+- [Fishing near Cedar City](https://mbh03.github.io/James/fishing-near-cedar-city-utah.html): mountain trout at Panguitch Lake
 - [Fishing trip FAQs](https://mbh03.github.io/James/fishing-trip-faqs.html): what is included, who can come, how to book
 
 ## National park trips
 
-- [Fishing near Zion](https://mbh03.github.io/James/fishing-near-zion-national-park.html): Take a rest day from the trails with a guided day on a red rock reservoir or a cool mountain lake.
+- [Fishing near Zion](https://mbh03.github.io/James/fishing-near-zion-national-park.html): Take a rest day from the trails with a guided day on a red rock reservoir.
 - [Fishing near Bryce Canyon](https://mbh03.github.io/James/fishing-near-bryce-canyon.html): Trade the hoodoos for a day on a mountain trout lake with rainbow, cutthroat and tiger trout.
 - [Fishing near Capitol Reef](https://mbh03.github.io/James/fishing-near-capitol-reef.html): Go deep for a trophy Mackinaw at Fish Lake, or add variety on Lake Powell.
 
