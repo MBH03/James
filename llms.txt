@@ -20,6 +20,13 @@ Book: call or text (435) 592-0680, email henrieoutfitters@gmail.com, or use the 
 - [Bass fishing in Southern Utah](https://mbh03.github.io/James/bass-fishing-southern-utah.html): Southern Utah has some of the most varied bass fishing in the West: largemouth in red rock reservoirs, striped bass schooling in the canyons of Lake Powell, and smallmouth in the big water. Henrie Outfitters guides bass trips at four lakes.
 - [Trout fishing in Southern Utah](https://mbh03.github.io/James/trout-fishing-southern-utah.html): From cold, forested mountain lakes to trophy trout water, Southern Utah offers rainbow, brook, cutthroat, tiger and lake trout. Henrie Outfitters guides trout trips at four lakes.
 
+## Planning pages
+
+- [Fishing on a Utah national parks trip](https://mbh03.github.io/James/fishing-utah-national-parks.html): a guided fishing day between park days (Zion, Bryce Canyon, Capitol Reef)
+- [Fishing near St. George](https://mbh03.github.io/James/fishing-near-st-george-utah.html): compare Sand Hollow, Quail Creek and Gunlock
+- [Fishing near Cedar City](https://mbh03.github.io/James/fishing-near-cedar-city-utah.html): mountain trout at Navajo Lake and Panguitch Lake
+- [Fishing trip FAQs](https://mbh03.github.io/James/fishing-trip-faqs.html): what is included, who can come, how to book
+
 ## National park trips
 
 - [Fishing near Zion](https://mbh03.github.io/James/fishing-near-zion-national-park.html): Take a rest day from the trails with a guided day on a red rock reservoir or a cool mountain lake.

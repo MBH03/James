@@ -13,25 +13,25 @@ TODAY = datetime.date.today().isoformat()
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 LAKES = [
- dict(slug="sand-hollow-reservoir", name="Sand Hollow Reservoir", where="near St. George, Southern Utah",
+ dict(slug="sand-hollow-reservoir", name="Sand Hollow Reservoir", where="near St. George and Hurricane, Utah", town="St. George",
       angle="Desert bass hunting", tagline="Red Rock Bass Factory",
       hook="Chase largemouth bass in crystal blue water surrounded by Southern Utah red rock.",
       experience=["This is desert bass fishing with a completely different backdrop. You are casting for largemouth along red sandstone cliffs, sandy shorelines, flooded structure and clear blue water. It is the kind of place where you can spend the morning working shallow cover and then chase bass around deeper structure as the sun climbs."],
       why="Year round bass fishing, dramatic scenery, and the chance to catch numbers of largemouth while still having a legitimate shot at a big fish.",
       species=["Largemouth bass", "Bluegill"], access="Good boat and shore access."),
- dict(slug="lake-powell", name="Lake Powell", where="Southern Utah",
+ dict(slug="lake-powell", name="Lake Powell", where="on the Utah and Arizona border", town="Utah and Arizona",
       angle="Canyon striper adventure", tagline="Striper Canyon",
       hook="Run the canyons, find the bait and watch the stripers explode on the surface.",
       experience=["Lake Powell feels less like fishing a lake and more like fishing an enormous canyon system. You run through narrow sandstone canyons, stop where bait is holding and cast for striped bass. When the stripers are schooling, the action can become frantic, with fish chasing bait right to the surface."],
       why="Massive water, endless canyon structure and the possibility of catching striped bass by the dozens when you find an active school.",
       species=["Striped bass", "Smallmouth bass", "Largemouth bass", "Walleye", "Crappie", "Catfish", "Bluegill"], access="Best fished by boat."),
- dict(slug="navajo-lake", name="Navajo Lake", where="Southern Utah",
+ dict(slug="navajo-lake", name="Navajo Lake", where="near Cedar City, Utah", town="Cedar City",
       angle="High alpine trout escape", tagline="Lava Tube Trout Lake",
       hook="High alpine trout fishing on a lake where the water disappears underground.",
       experience=["Navajo is almost the opposite of Lake Powell. You are fishing at more than 9,000 feet, surrounded by spruce and pine rather than desert cliffs. The water is cold, quiet and surprisingly deep in places despite the lake\u2019s relatively small size. It feels like a remote mountain trout expedition."],
       why="Brook trout, rainbow trout and a completely different high-country fishing experience. The surrounding forest and elevation make the trip feel more like Colorado or Montana than Southern Utah.",
       species=["Rainbow trout", "Brook trout"], access="Cool, forested mountain setting."),
- dict(slug="panguitch-lake", name="Panguitch Lake", where="Southern Utah",
+ dict(slug="panguitch-lake", name="Panguitch Lake", where="near Panguitch and Cedar City, Utah", town="Panguitch",
       angle="Trophy trout hunting", tagline="Big Fish Reboot",
       hook="Fish the lake named \u2018Big Fish\u2019 for Southern Utah\u2019s trophy trout.",
       experience=["Panguitch is built around one thing: trout. You can troll open water for cruising fish, work shorelines and structure, or target tiger trout and cutthroat with more aggressive presentations. The lake\u2019s high elevation and open basin make changing weather and conditions part of the experience."],
@@ -40,20 +40,20 @@ LAKES = [
       details=["Full 8 hour guided fishing trip", "All fishing gear and equipment provided", "Lunch provided",
                "Customized start and end times to fit your schedule", "Expert instruction and local knowledge",
                "Perfect for beginners, families and experienced anglers"]),
- dict(slug="gunlock-reservoir", name="Gunlock Reservoir", where="near St. George, Southern Utah",
+ dict(slug="gunlock-reservoir", name="Gunlock Reservoir", where="near St. George, Utah", town="St. George",
       angle="Intimate red rock bass fishing", tagline="Comeback Waterfall Bass",
       hook="Fish a red rock bass lake that came back from the brink.",
       experience=["Gunlock feels more intimate than Sand Hollow or Powell. You are fishing a smaller red rock reservoir where finding the right shoreline, point or piece of cover can make all the difference. It is a good lake for slowing down and actually learning where the bass are holding.",
                   "And when conditions are right, the fishing trip comes with something you cannot manufacture: Gunlock Falls spilling over the dam."],
       why="Smaller water, less overwhelming than Powell, beautiful red rock scenery and a bass fishery with an unusual comeback story.",
       species=["Largemouth bass", "Crappie", "Catfish"], access="Smaller warm water lake."),
- dict(slug="quail-creek-reservoir", name="Quail Creek Reservoir", where="near St. George, Southern Utah",
+ dict(slug="quail-creek-reservoir", name="Quail Creek Reservoir", where="near St. George and Hurricane, Utah", town="St. George",
       angle="Clear water trophy bass", tagline="Record Factory",
       hook="A desert reservoir where stocked trout help grow trophy bass.",
       experience=["Quail Creek is one of those lakes that can surprise you. It does not look like a trophy fishery from the shore, but beneath the clear water is an unusual combination of warm water bass habitat and stocked trout. Largemouth can key on trout, creating opportunities to target bigger bass around deeper water and structure."],
       why="Clear water, big largemouth, aggressive smallmouth-style sight fishing opportunities and the unusual possibility of catching trout and bass in the same day.",
       species=["Largemouth bass", "Crappie", "Bluegill", "Rainbow trout"], access="Good facilities and boat ramps."),
- dict(slug="fish-lake", name="Fish Lake", where="farther north in Utah",
+ dict(slug="fish-lake", name="Fish Lake", where="near Loa and Torrey, Utah", town="Loa and Torrey",
       angle="Deep water Mackinaw hunting", tagline="Alpine Mackinaw Lake",
       hook="Go deep for a trophy Mackinaw in the heart of Utah\u2019s high country.",
       experience=["Fish Lake is not a numbers game in the same way as some of the Southern Utah bass lakes. This is about hunting. You are working deep water for lake trout, watching electronics, finding the right depth and putting a bait or lure in front of a fish that can weigh tens of pounds.",
@@ -97,8 +97,14 @@ def lake_page(l):
     if l.get("details"):
         details_html = "<h3>Good to know</h3><ul class=\"know\">" + "".join(f"<li>{E(d)}</li>" for d in l["details"]) + "</ul>"
     url = f"{BASE}lakes/{l['slug']}.html"
-    title = f"Guided Fishing Trips at {l['name']}, Utah | Henrie Outfitters"
-    desc = f"{l['hook']} Guided fishing trips at {l['name']} with Henrie Outfitters. Call {PHONE_DISPLAY}."
+    # CONFIRM WITH JAMES: the nearby towns in each lake's "where"/"town" fields.
+    if l["name"] == "Lake Powell":
+        title = "Lake Powell Fishing Guide, Utah and Arizona | Henrie Outfitters"
+    else:
+        title = f"{l['name']} Fishing Guide near {l['town']}, UT | Henrie Outfitters"
+    if len(title) > 70:
+        title = f"{l['name']} Fishing Guide near {l['town']}, UT"
+    desc = f"{l['hook']} Guided fishing trips at {l['name']}, {l['where']}, with Henrie Outfitters. Call {PHONE_DISPLAY}."
     qa = faq(l)
     cur = ' aria-current="page"'
     dd_items = "".join(f'<a href="{o["slug"]}.html"{cur if o["slug"] == l["slug"] else ""}>{E(o["name"])}</a>' for o in LAKES)
@@ -372,7 +378,7 @@ def hub_page():
 {lake_cards_html(LAKES)}</div></section>
 <section class="alt"><div class="wrap"><h2>What you can catch, and where</h2>
 {species_table()}
-<p>Visiting a national park? See fishing near <a href="fishing-near-zion-national-park.html">Zion</a>, <a href="fishing-near-bryce-canyon.html">Bryce Canyon</a> and <a href="fishing-near-capitol-reef.html">Capitol Reef</a>.</p>
+<p>Planning around where you are staying? See <a href="fishing-near-st-george-utah.html">fishing near St. George</a>, <a href="fishing-near-cedar-city-utah.html">fishing near Cedar City</a> and our <a href="fishing-trip-faqs.html">fishing trip FAQs</a>. Visiting a national park? See our <a href="fishing-utah-national-parks.html">national parks fishing guide</a>, or fishing near <a href="fishing-near-zion-national-park.html">Zion</a>, <a href="fishing-near-bryce-canyon.html">Bryce Canyon</a> and <a href="fishing-near-capitol-reef.html">Capitol Reef</a>.</p>
 <p>Looking for one kind of fishing? See our guides to <a href="{SPECIES_PAGES[0]["slug"]}.html">bass fishing in Southern Utah</a> and <a href="{SPECIES_PAGES[1]["slug"]}.html">trout fishing in Southern Utah</a>.</p></div></section>
 <section><div class="wrap"><h2>Which lake should I fish?</h2>
 <ul class="know">
@@ -492,6 +498,7 @@ def park_page(pk):
     others = [x for x in PARKS if x is not pk]
     also = "".join(f'<li><a href="{x["slug"]}.html">Fishing near {E(x["short"])}</a></li>' for x in others)
     also += "".join(f'<li><a href="{s}.html">{E(next(sp["label"] for sp in SPECIES_PAGES if sp["slug"] == s))} in Southern Utah</a></li>' for s in pk["also"])
+    also += f'<li><a href="{PARKS_HUB["slug"]}.html">Fishing on a Utah national parks trip</a></li>'
     also += f'<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>'
     body = f"""<!-- {pk["confirm"]} -->
 <section><div class="wrap"><h2>Fishing outside the park</h2><p class="lead">{E(pk["outside"])}</p></div></section>
@@ -508,6 +515,166 @@ PARK_FOR_LAKE = {}
 for _pk in PARKS:
     for _s, _ in _pk["lakes"]:
         PARK_FOR_LAKE.setdefault(_s, []).append(_pk)
+
+
+# ---------- More landing pages: parks hub, St. George, Cedar City, FAQ ----------
+PARKS_HUB = dict(slug="fishing-utah-national-parks", label="Fishing on a Utah national parks trip")
+ST_GEORGE = dict(slug="fishing-near-st-george-utah", short="St. George")
+CEDAR = dict(slug="fishing-near-cedar-city-utah", short="Cedar City")
+FAQ_PAGE = dict(slug="fishing-trip-faqs", label="Fishing trip FAQs")
+
+FAQ_ALL = [
+ ("What is included on a guided fishing trip?", "A full 8 hour guided fishing trip, all fishing gear and equipment, lunch, customized start and end times to fit your schedule, and expert instruction and local knowledge."),
+ ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
+ ("Can families and kids come along?", "Yes. Families are welcome, and the trip is built around your group."),
+ ("Where do you guide fishing trips?", "At seven Southern Utah lakes: Panguitch Lake, Sand Hollow Reservoir, Lake Powell, Navajo Lake, Gunlock Reservoir, Quail Creek Reservoir and Fish Lake."),
+ ("What fish can I catch?", "Largemouth, smallmouth and striped bass, bluegill, crappie, catfish and walleye in the warm water lakes, and rainbow, cutthroat, tiger, brook and lake trout (Mackinaw) and splake in the mountain lakes. Each lake page lists what is there."),
+ ("Which lake should I choose?", "For numbers of largemouth bass, start with Sand Hollow. For striped bass and the widest variety, choose Lake Powell. For trophy trout, choose Panguitch Lake. For a cool, forested mountain trip, choose Navajo Lake, and for trophy lake trout (Mackinaw), choose Fish Lake."),
+ ("I'm visiting a national park. Can I fit in a fishing day?", "Yes. Many visitors take one day out of a park trip to fish. See our pages for Zion, Bryce Canyon and Capitol Reef, and our guide to fishing on a Utah national parks trip. The fishing is on lakes outside the parks."),
+ ("Do you guide hunting trips too?", "Yes. Henrie Outfitters offers guided fishing and guided hunting. Contact us to talk about hunting."),
+ ("How do I book?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form on the Henrie Outfitters website. Customized trip packages are available."),
+]
+
+def parks_hub_page():
+    title = "Fishing on a Utah National Parks Trip | Henrie Outfitters"
+    desc = "Take a day out of your Utah national parks trip to fish. Guided trips near Zion, Bryce Canyon and Capitol Reef with Henrie Outfitters. Call (435) 592-0680."
+    park_cards = ""
+    for pk in PARKS:
+        lakes = ", ".join(next(l["name"] for l in LAKES if l["slug"] == s) for s, _ in pk["lakes"])
+        park_cards += (f'<article class="lcard"><p class="eyebrow">{E(pk["name"])}</p>'
+                       f'<h3><a href="{pk["slug"]}.html">{E(pk["h1"])}</a></h3>'
+                       f'<p>{E(pk["sub"])}</p><p class="note">Lakes: {E(lakes)}</p>'
+                       f'<p><a class="more" href="{pk["slug"]}.html">See the trip &rarr;</a></p></article>')
+    body = f"""<!-- CONFIRM WITH JAMES: how far Moab-side visitors would travel, and whether he runs trips for Arches and Canyonlands visitors. -->
+<section><div class="wrap"><h2>A day on the water between park days</h2>
+<p class="lead">Utah's five national parks are Zion, Bryce Canyon, Capitol Reef, Arches and Canyonlands. A road trip through them is a lot of hiking, driving and viewpoints. A guided fishing day gives you a slower, different kind of day: a lake, a boat, and a local guide doing the planning.</p>
+<p>{E(TRIP_INCLUDES)}</p>
+<p>The fishing is on lakes in the region, outside the parks. Check the National Park Service for the rules inside each park.</p></div></section>
+<section class="alt"><div class="wrap"><h2>Which park pairs with which lake</h2>
+<div class="lgrid">{park_cards}</div>
+<h3>Arches and Canyonlands</h3>
+<p>Arches and Canyonlands are in the Moab area, a long way from our lakes. Lake Powell is the closest of our seven lakes. If your trip includes Moab, <a href="./#contact">contact us</a> and we'll tell you honestly whether a fishing day fits your plans.</p></div></section>
+<section><div class="wrap"><h2>Planning your fishing day</h2>
+<ul class="know">
+<li>Pick the park you are visiting, then the lake that pairs with it. Each park page explains the options.</li>
+<li>Choose a start time that fits your schedule. Start and end times are customized.</li>
+<li>No fishing experience is needed, and families are welcome.</li>
+<li>Book ahead. <a href="tel:{PHONE_TEL}">Call or text {PHONE_DISPLAY}</a>, or use the <a href="./#contact">booking form</a>.</li>
+</ul>
+<p><a class="btn" href="./#contact"><span>Book a fishing day</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap"><h2>Questions about fishing on a parks trip</h2>{faq_html_block(PARKS_HUB_FAQ)}</div></section>
+<section><div class="wrap"><h2>Keep planning</h2><ul class="others">
+<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>
+<li><a href="{ST_GEORGE["slug"]}.html">Fishing near St. George</a></li>
+<li><a href="{CEDAR["slug"]}.html">Fishing near Cedar City</a></li>
+<li><a href="{FAQ_PAGE["slug"]}.html">Fishing trip FAQs</a></li></ul></div></section>"""
+    graph = [service_ld("Guided fishing day for Utah national parks visitors", desc, f"{BASE}{PARKS_HUB['slug']}.html", LAKES), faq_ld(PARKS_HUB_FAQ)]
+    return root_page(PARKS_HUB["slug"], title, desc, "Take a Day Out to Fish on Your Utah National Parks Trip", "Zion · Bryce Canyon · Capitol Reef",
+                     "A guided fishing day between park days, on lakes near Zion, Bryce Canyon and Capitol Reef.", body, graph, PARKS_HUB["label"], photo=False)
+
+PARKS_HUB_FAQ = [
+ ("Is there fishing inside Utah's national parks?", "This page covers guided trips on lakes in the region, outside the parks. Check the National Park Service for current rules about fishing inside each park."),
+ ("Which national parks can I pair with a fishing day?", "Zion, Bryce Canyon and Capitol Reef each have lakes in the region that fit a guided fishing day. Arches and Canyonlands are in the Moab area, a long way from our lakes."),
+ ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
+ ("How do I book a fishing day?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form. Customized start and end times are available."),
+]
+
+def compare_table(slugs):
+    lake = {l["slug"]: l for l in LAKES}
+    rows = ""
+    for s in slugs:
+        l = lake[s]
+        rows += (f'<tr><th scope="row"><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></th>'
+                 f'<td>{E(l["angle"])}</td><td>{E(", ".join(l["species"]))}</td><td>{E(l["access"])}</td></tr>')
+    return ('<div class="tablewrap"><table class="spt"><thead><tr><th>Lake</th><th>Best for</th><th>Fish</th><th>Setting</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div>')
+
+def st_george_page():
+    lake = {l["slug"]: l for l in LAKES}
+    slugs = ["sand-hollow-reservoir", "quail-creek-reservoir", "gunlock-reservoir"]
+    title = "Fishing Near St. George, Utah | Guided Bass Trips | Henrie Outfitters"
+    desc = "Guided fishing near St. George, Utah: compare Sand Hollow, Quail Creek and Gunlock for largemouth bass, crappie, bluegill and trout. Call (435) 592-0680."
+    why = {"sand-hollow-reservoir": "Choose Sand Hollow if you want numbers of largemouth bass in red rock scenery, with a real chance at a big fish. It offers year round bass fishing.",
+           "quail-creek-reservoir": "Choose Quail Creek for big largemouth in clear water, with stocked rainbow trout in the mix. It has good facilities and boat ramps.",
+           "gunlock-reservoir": "Choose Gunlock if you want smaller, quieter water where you can slow down and learn where the bass hold. When conditions are right, Gunlock Falls spills over the dam."}
+    sections = ""
+    for s in slugs:
+        l = lake[s]
+        sections += (f'<article class="spsec"><h2><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></h2><p class="eyebrow">{E(l["tagline"])}</p>'
+                     f'<p>{E(why[s])}</p><ul class="fish">{"".join(f"<li>{E(x)}</li>" for x in l["species"])}</ul>'
+                     f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+    qa = [("Which lake near St. George is best for bass?", "Sand Hollow Reservoir is the one to start with for numbers of largemouth bass. Quail Creek Reservoir can produce big largemouth in clear water, and Gunlock Reservoir is a smaller, quieter option."),
+          ("Can I fish near St. George in winter?", "Sand Hollow offers year round bass fishing. Contact us to ask about winter trips at the other lakes."),
+          ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
+          ("How do I book a guided trip near St. George?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form.")]
+    body = f"""<!-- CONFIRM WITH JAMES: seasons at each lake, meeting points, and which lake he recommends to first-timers. -->
+<section><div class="wrap"><h2>Three lakes, three different days</h2>
+<p class="lead">St. George is the hub for Southern Utah's red rock bass fishing. Sand Hollow, Quail Creek and Gunlock are close to town, and each one is a different experience. This page helps you choose.</p>
+{compare_table(slugs)}</div></section>
+<section class="alt"><div class="wrap sps">{sections}</div></section>
+<section><div class="wrap"><h2>Staying in St. George for Zion?</h2>
+<p>Many visitors base themselves in St. George for Zion National Park. A guided fishing day on one of these lakes is an easy way to take a break from hiking. See <a href="{PARKS[0]["slug"]}.html">fishing near Zion National Park</a>.</p>
+<p>{E(TRIP_INCLUDES)}</p>
+<p><a class="btn" href="./#contact"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap"><h2>Questions about fishing near St. George</h2>{faq_html_block(qa)}</div></section>
+<section><div class="wrap"><h2>Keep planning</h2><ul class="others">
+<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>
+<li><a href="{SPECIES_PAGES[0]["slug"]}.html">Bass fishing in Southern Utah</a></li>
+<li><a href="{CEDAR["slug"]}.html">Fishing near Cedar City</a></li>
+<li><a href="{PARKS_HUB["slug"]}.html">Fishing on a Utah national parks trip</a></li></ul></div></section>"""
+    graph = [service_ld("Guided fishing trips near St. George, Utah", desc, f"{BASE}{ST_GEORGE['slug']}.html", [lake[s] for s in slugs]), faq_ld(qa)]
+    return root_page(ST_GEORGE["slug"], title, desc, "Fishing Near St. George, Utah", "St. George region · Southern Utah",
+                     "Compare Sand Hollow, Quail Creek and Gunlock, and pick the lake that fits your day.", body, graph, "Fishing near St. George", photo=False)
+
+def cedar_page():
+    lake = {l["slug"]: l for l in LAKES}
+    slugs = ["navajo-lake", "panguitch-lake"]
+    title = "Fishing Near Cedar City, Utah | Guided Trout Trips | Henrie Outfitters"
+    desc = "Guided trout fishing near Cedar City, Utah on mountain lakes: Navajo Lake and Panguitch Lake. Rainbow, brook, cutthroat and tiger trout. Call (435) 592-0680."
+    why = {"navajo-lake": "Navajo is a cold, quiet, forested mountain lake with rainbow and brook trout. It feels like a remote high-country trout trip, and it is a very different setting from the desert reservoirs to the south.",
+           "panguitch-lake": "Panguitch Lake is built around trout, with rainbow, cutthroat and tiger trout and good boat access. It is the lake to choose if you are looking for a large Southern Utah trout."}
+    sections = ""
+    for s in slugs:
+        l = lake[s]
+        sections += (f'<article class="spsec"><h2><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></h2><p class="eyebrow">{E(l["tagline"])}</p>'
+                     f'<p>{E(why[s])}</p><ul class="fish">{"".join(f"<li>{E(x)}</li>" for x in l["species"])}</ul>'
+                     f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+    qa = [("What kind of fishing is near Cedar City?", "Mountain trout fishing. Navajo Lake offers rainbow and brook trout, and Panguitch Lake offers rainbow, cutthroat and tiger trout."),
+          ("Is there bass fishing near Cedar City?", "Our bass lakes are on the St. George side of Southern Utah: Sand Hollow, Quail Creek and Gunlock. See our guide to fishing near St. George."),
+          ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
+          ("How do I book?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form.")]
+    body = f"""<!-- CONFIRM WITH JAMES: which lakes he runs for Cedar City visitors, meeting points, and the best months for each lake. -->
+<section><div class="wrap"><h2>Mountain trout lakes near Cedar City</h2>
+<p class="lead">If you are staying in or passing through Cedar City, the mountain lakes are where the trout fishing is. Both of these lakes are high-country trout waters, and each is a different kind of day.</p>
+{compare_table(slugs)}</div></section>
+<section class="alt"><div class="wrap sps">{sections}</div></section>
+<section><div class="wrap"><h2>Want bass instead?</h2>
+<p>Our warm water lakes are on the St. George side of Southern Utah. See <a href="{ST_GEORGE["slug"]}.html">fishing near St. George</a> for Sand Hollow, Quail Creek and Gunlock.</p>
+<p>{E(TRIP_INCLUDES)}</p>
+<p><a class="btn" href="./#contact"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap"><h2>Questions about fishing near Cedar City</h2>{faq_html_block(qa)}</div></section>
+<section><div class="wrap"><h2>Keep planning</h2><ul class="others">
+<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>
+<li><a href="{SPECIES_PAGES[1]["slug"]}.html">Trout fishing in Southern Utah</a></li>
+<li><a href="{PARKS[1]["slug"]}.html">Fishing near Bryce Canyon</a></li>
+<li><a href="{PARKS_HUB["slug"]}.html">Fishing on a Utah national parks trip</a></li></ul></div></section>"""
+    graph = [service_ld("Guided trout fishing near Cedar City, Utah", desc, f"{BASE}{CEDAR['slug']}.html", [lake[s] for s in slugs]), faq_ld(qa)]
+    return root_page(CEDAR["slug"], title, desc, "Fishing Near Cedar City, Utah", "Cedar City region · Southern Utah",
+                     "Navajo Lake and Panguitch Lake for rainbow, brook, cutthroat and tiger trout.", body, graph, "Fishing near Cedar City", photo=False)
+
+def faq_page():
+    title = "Fishing Trip FAQs | Guided Fishing in Southern Utah | Henrie Outfitters"
+    desc = "Answers about guided fishing trips in Southern Utah: what's included, who can come, which lake to pick, national park visitors and how to book. Call (435) 592-0680."
+    body = f"""<section><div class="wrap"><h2>Common questions</h2>{faq_html_block(FAQ_ALL)}
+<p><a class="btn" href="./#contact"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap"><h2>Keep planning</h2><ul class="others">
+<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>
+<li><a href="{PARKS_HUB["slug"]}.html">Fishing on a Utah national parks trip</a></li>
+<li><a href="{ST_GEORGE["slug"]}.html">Fishing near St. George</a></li>
+<li><a href="{CEDAR["slug"]}.html">Fishing near Cedar City</a></li></ul></div></section>"""
+    graph = [faq_ld(FAQ_ALL)]
+    return root_page(FAQ_PAGE["slug"], title, desc, "Fishing Trip FAQs", "Southern Utah",
+                     "What's included, who can come, which lake to pick and how to book.", body, graph, FAQ_PAGE["label"], photo=False)
 
 def dd_index():
     items = "".join(f'<a href="lakes/{l["slug"]}.html">{E(l["name"])}</a>' for l in LAKES)
@@ -545,7 +712,9 @@ def main():
         (ROOT / f"{sp['slug']}.html").write_text(species_page(sp), encoding="utf-8")
     for pk in PARKS:
         (ROOT / f"{pk['slug']}.html").write_text(park_page(pk), encoding="utf-8")
-    urls = [BASE, f"{BASE}{HUB['slug']}.html"] + [f"{BASE}{sp['slug']}.html" for sp in SPECIES_PAGES] + [f"{BASE}{pk['slug']}.html" for pk in PARKS] + [BASE + "photos.html"] + [f"{BASE}lakes/{l['slug']}.html" for l in LAKES]
+    for d, fn in ((PARKS_HUB, parks_hub_page), (ST_GEORGE, st_george_page), (CEDAR, cedar_page), (FAQ_PAGE, faq_page)):
+        (ROOT / f"{d['slug']}.html").write_text(fn(), encoding="utf-8")
+    urls = [BASE, f"{BASE}{HUB['slug']}.html"] + [f"{BASE}{sp['slug']}.html" for sp in SPECIES_PAGES] + [f"{BASE}{pk['slug']}.html" for pk in PARKS] + [f"{BASE}{d['slug']}.html" for d in (PARKS_HUB, ST_GEORGE, CEDAR, FAQ_PAGE)] + [BASE + "photos.html"] + [f"{BASE}lakes/{l['slug']}.html" for l in LAKES]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in urls) + "</urlset>\n"
     (ROOT / "sitemap.xml").write_text(sm)
@@ -558,6 +727,7 @@ def main():
     for l in LAKES:
         lines.append(f"- [{l['name']}]({BASE}lakes/{l['slug']}.html): {l['tagline']}, {l['angle'].lower()}. {l['hook']}")
     lines += ["", "## Guides by fish", "", f"- [Guided fishing in Southern Utah]({BASE}{HUB['slug']}.html): all seven lakes, what you can catch where, FAQ"] + [f"- [{sp['label']} in Southern Utah]({BASE}{sp['slug']}.html): {sp['intro']}" for sp in SPECIES_PAGES]
+    lines += ["", "## Planning pages", "", f"- [Fishing on a Utah national parks trip]({BASE}{PARKS_HUB['slug']}.html): a guided fishing day between park days (Zion, Bryce Canyon, Capitol Reef)", f"- [Fishing near St. George]({BASE}{ST_GEORGE['slug']}.html): compare Sand Hollow, Quail Creek and Gunlock", f"- [Fishing near Cedar City]({BASE}{CEDAR['slug']}.html): mountain trout at Navajo Lake and Panguitch Lake", f"- [Fishing trip FAQs]({BASE}{FAQ_PAGE['slug']}.html): what is included, who can come, how to book"]
     lines += ["", "## National park trips", ""] + [f"- [Fishing near {pk['short']}]({BASE}{pk['slug']}.html): {pk['sub']}" for pk in PARKS]
     lines += ["", "## Main site", "", f"- [Henrie Outfitters home]({BASE}): trips, lakes, guide, booking", f"- [Photos]({BASE}photos.html): photos from guided fishing trips", f"- [Instagram]({INSTAGRAM})", ""]
     (ROOT / "llms.txt").write_text("\n".join(lines))

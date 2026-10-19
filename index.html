@@ -148,6 +148,11 @@ header.nav{position:sticky;top:0;z-index:80;background:var(--offwhite);border-bo
 .fish{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
 .lakeitem .btn{align-self:flex-start}
 .fish li{font-family:var(--label);font-weight:600;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--black);color:var(--black);padding:5px 10px;background:#fff}
+.parkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.parkcard{display:flex;flex-direction:column;gap:8px;border:1px solid var(--black);background:#fff;padding:26px 24px;transition:background .25s}
+.parkcard:hover{background:var(--cream)}
+.parkcard strong{font-family:var(--cond);font-weight:600;font-size:1.9rem;line-height:1;text-transform:uppercase;color:var(--olive);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+.parks{background:var(--offwhite)}
 /* guide */
 .guidesec{background:var(--warm)}
 .guide{display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:center}
@@ -252,6 +257,7 @@ footer a:hover{color:#fff}
     <a href="#trips">Trips</a>
     <!-- LAKENAV:START --><div class="dd"><a class="ddlink" href="#lakes">Lakes</a><button class="ddbtn" type="button" aria-label="Show all lakes" aria-expanded="false">&#9662;</button><div class="ddmenu"><a href="#lakes">All lakes</a><a href="lakes/sand-hollow-reservoir.html">Sand Hollow Reservoir</a><a href="lakes/lake-powell.html">Lake Powell</a><a href="lakes/navajo-lake.html">Navajo Lake</a><a href="lakes/panguitch-lake.html">Panguitch Lake</a><a href="lakes/gunlock-reservoir.html">Gunlock Reservoir</a><a href="lakes/quail-creek-reservoir.html">Quail Creek Reservoir</a><a href="lakes/fish-lake.html">Fish Lake</a></div></div><!-- LAKENAV:END -->
     <a href="photos.html">Photos</a>
+    <a href="fishing-utah-national-parks.html">Park Trips</a>
     <a href="#about">Your Guide</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -264,7 +270,7 @@ footer a:hover{color:#fff}
 <section class="hero">
   <div class="wrap">
     <h1>Guided fishing trips in Southern Utah</h1>
-    <p>Seven lakes, from bass to trophy trout, with owner and local expert James Henrie. Guided hunting too.</p>
+    <p>Seven lakes near St. George, Cedar City, Zion and Bryce Canyon, from bass to trophy trout, with local expert James Henrie. Guided hunting too.</p>
     <a class="btn solid" href="#contact"><span>Book a trip</span><i>&rarr;</i></a>
     <a class="herolink" href="#lakes">7 lakes across Southern Utah &darr;</a>
   </div>
@@ -353,6 +359,17 @@ footer a:hover{color:#fff}
   <p class="reveal"><a class="btn" href="#contact"><span>Ask about another lake</span><i>&rarr;</i></a></p>
 </div></section>
 
+<section class="parks" id="parks"><div class="wrap">
+  <div class="head reveal"><h2>Visiting a national park?</h2><span class="label">Take a day out to fish</span></div>
+  <p class="lakes-intro reveal">Zion, Bryce Canyon and Capitol Reef are all within reach of our lakes. A guided fishing day is a slower, different kind of day between hikes, with all the gear and lunch provided and no experience needed.</p>
+  <div class="parkgrid">
+    <a class="parkcard reveal" href="fishing-near-zion-national-park.html"><span class="label">Zion</span><strong>Fishing near Zion National Park</strong><span>Red rock bass lakes near St. George, or a cool mountain lake.</span></a>
+    <a class="parkcard reveal" href="fishing-near-bryce-canyon.html"><span class="label">Bryce Canyon</span><strong>Fishing near Bryce Canyon</strong><span>Trophy trout on Panguitch Lake.</span></a>
+    <a class="parkcard reveal" href="fishing-near-capitol-reef.html"><span class="label">Capitol Reef</span><strong>Fishing near Capitol Reef</strong><span>Mackinaw at Fish Lake, or variety on Lake Powell.</span></a>
+  </div>
+  <p class="reveal" style="margin-top:36px"><a class="btn solid" href="fishing-utah-national-parks.html"><span>Plan a park-trip fishing day</span><i>&rarr;</i></a></p>
+</div></section>
+
 <section class="band"><div class="wrap"><div class="stats reveal">
   <div class="stat"><strong>25 years</strong><span>Outdoor experience</span></div>
   <div class="stat"><strong>Fishing &amp; hunting</strong><span>Guided trips</span></div>
@@ -423,7 +440,7 @@ footer a:hover{color:#fff}
       <img class="flogo" src="assets/logo-264.webp" alt="Henrie Outfitters LLC logo" width="132" height="132" loading="lazy"><div class="name">Henrie Outfitters</div>
       <p>Guided fishing and hunting in Southern Utah with owner and local expert James Henrie.</p>
     </div>
-    <div><h4>Explore</h4><ul><li><a href="#trips">Trips</a></li><li><a href="#lakes">Lakes</a></li><li><a href="guided-fishing-southern-utah.html">Southern Utah fishing guide</a></li><li><a href="bass-fishing-southern-utah.html">Bass fishing</a></li><li><a href="trout-fishing-southern-utah.html">Trout fishing</a></li><li><a href="fishing-near-zion-national-park.html">Fishing near Zion</a></li><li><a href="fishing-near-bryce-canyon.html">Fishing near Bryce Canyon</a></li><li><a href="fishing-near-capitol-reef.html">Fishing near Capitol Reef</a></li><li><a href="photos.html">Photos</a></li><li><a href="#faq">Questions</a></li><li><a href="#about">Your guide</a></li></ul></div>
+    <div><h4>Explore</h4><ul><li><a href="#trips">Trips</a></li><li><a href="#lakes">Lakes</a></li><li><a href="guided-fishing-southern-utah.html">Southern Utah fishing guide</a></li><li><a href="bass-fishing-southern-utah.html">Bass fishing</a></li><li><a href="trout-fishing-southern-utah.html">Trout fishing</a></li><li><a href="fishing-utah-national-parks.html">National parks fishing</a></li><li><a href="fishing-near-st-george-utah.html">Fishing near St. George</a></li><li><a href="fishing-near-cedar-city-utah.html">Fishing near Cedar City</a></li><li><a href="fishing-trip-faqs.html">Fishing FAQs</a></li><li><a href="fishing-near-zion-national-park.html">Fishing near Zion</a></li><li><a href="fishing-near-bryce-canyon.html">Fishing near Bryce Canyon</a></li><li><a href="fishing-near-capitol-reef.html">Fishing near Capitol Reef</a></li><li><a href="photos.html">Photos</a></li><li><a href="#faq">Questions</a></li><li><a href="#about">Your guide</a></li></ul></div>
     <div><h4>Contact</h4><ul><li><a href="tel:+14355920680">(435) 592 0680</a></li><li><a href="mailto:henrieoutfitters@gmail.com">henrieoutfitters@gmail.com</a></li><li><a href="#contact">Book a trip</a></li></ul></div>
     <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/henrieoutfitters/">Instagram</a></li></ul></div>
   </div>
