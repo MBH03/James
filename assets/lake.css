@@ -100,3 +100,4 @@ details,details:last-child,.others li{border-color:var(--line)}
 .photogrid img{border-radius:var(--r)}
 section{padding:96px 0}
 @media(max-width:820px){section{padding:64px 0}}
+.spt.rt{min-width:0}.spt.rt tbody th{white-space:normal}.spt.rt td{font-weight:600;color:var(--olive)}

@@ -31,9 +31,9 @@ LAKES = [
       experience=["Panguitch is built around one thing: trout. You can troll open water for cruising fish, work shorelines and structure, or target tiger trout and cutthroat with more aggressive presentations. The lake\u2019s high elevation and open basin make changing weather and conditions part of the experience."],
       why="This is where you go when the goal is not simply catching trout but looking for a genuinely large Southern Utah trout.",
       species=["Rainbow trout", "Cutthroat trout", "Tiger trout"], access="Good boat access.",
-      details=["Full 8 hour guided fishing trip", "All fishing gear and equipment provided", "Lunch provided",
-               "Customized start and end times to fit your schedule", "Expert instruction and local knowledge",
-               "Perfect for beginners, families and experienced anglers"]),
+      details=["Private full day charter, up to 6 hours of fishing (about 8 hours with travel)", "All rods, tackle, bait and lures provided",
+               "Life jackets, bottled water and ice provided", "Fish cleaned and bagged with ice if you want to keep them",
+               "Expert instruction and local knowledge", "Perfect for beginners, families and experienced anglers"]),
  dict(slug="gunlock-reservoir", name="Gunlock Reservoir", where="near St. George, Utah", town="St. George",
       angle="Intimate red rock bass fishing", tagline="Comeback Waterfall Bass",
       hook="Fish a red rock bass lake that came back from the brink.",
@@ -76,7 +76,8 @@ def jl(obj):  # JSON-LD script tag
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 BUSINESS = {"@type": "LocalBusiness", "@id": BASE + "#business", "name": "Henrie Outfitters LLC",
-            "url": BASE, "telephone": "+1-435-592-0680", "email": EMAIL}
+            "url": BASE, "telephone": "+1-435-592-0680", "email": EMAIL,
+            "address": {"@type": "PostalAddress", "addressLocality": "Cedar City", "addressRegion": "UT", "addressCountry": "US"}}
 
 def faq(l):
     sp = ", ".join(s.lower() for s in l["species"][:-1]) + " and " + l["species"][-1].lower() if len(l["species"]) > 1 else l["species"][0].lower()
@@ -89,7 +90,7 @@ def faq(l):
     ]
     if l["slug"] == "panguitch-lake":
         qa.insert(2, ("What is included on a guided fishing trip at Panguitch Lake?",
-            "A full 8 hour guided fishing trip, all fishing gear and equipment, lunch, customized start and end times to fit your schedule, and expert instruction and local knowledge."))
+            "A private full day charter for just your group: up to 6 hours of fishing (plan on about 8 hours with travel), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."))
     return qa
 
 def sp_short(l):
@@ -179,7 +180,7 @@ def lake_page(l):
 {park_links}
 <p><a class="btn" href="{book}"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
 </main>
-<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
+<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Cedar City, Utah &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
 <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> &middot; <a href="mailto:{EMAIL}">{EMAIL}</a> &middot; <a href="{INSTAGRAM}">Instagram</a></p></div></footer>
 <script>document.querySelector(".ddbtn").addEventListener("click",function(){{var d=this.parentNode,o=d.classList.toggle("open");this.setAttribute("aria-expanded",o)}});document.addEventListener("click",function(e){{var d=document.querySelector(".dd");if(d&&!d.contains(e.target)){{d.classList.remove("open")}}}});</script>
 </body>
@@ -256,7 +257,7 @@ def photos_page():
 </div></section>
 <section><div class="wrap"><div class="photogrid">{items}</div></div></section>
 </main>
-<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
+<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Cedar City, Utah &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
 <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> &middot; <a href="mailto:{EMAIL}">{EMAIL}</a> &middot; <a href="{INSTAGRAM}">Instagram</a></p></div></footer>
 <script>document.querySelector(".ddbtn").addEventListener("click",function(){{var d=this.parentNode,o=d.classList.toggle("open");this.setAttribute("aria-expanded",o)}});document.addEventListener("click",function(e){{var d=document.querySelector(".dd");if(d&&!d.contains(e.target)){{d.classList.remove("open")}}}});</script>
 </body>
@@ -331,7 +332,7 @@ def root_page(slug, title, desc, h1, kicker, sub, body, graph, crumb_label, cta=
 </div></section>
 {body}
 </main>
-<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
+<footer><div class="wrap"><p><strong>Henrie Outfitters LLC</strong> &middot; Cedar City, Utah &middot; Guided fishing and hunting in Southern Utah with James Henrie</p>
 <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> &middot; <a href="mailto:{EMAIL}">{EMAIL}</a> &middot; <a href="{INSTAGRAM}">Instagram</a></p></div></footer>
 <script>document.querySelector(".ddbtn").addEventListener("click",function(){{var d=this.parentNode,o=d.classList.toggle("open");this.setAttribute("aria-expanded",o)}});document.addEventListener("click",function(e){{var d=document.querySelector(".dd");if(d&&!d.contains(e.target)){{d.classList.remove("open")}}}});</script>
 </body>
@@ -358,7 +359,7 @@ HUB_FAQ = [
  ("Where can I catch striped bass in Southern Utah?",
   "Lake Powell. Guided trips run the canyons, find the bait and cast to striped bass, which can school and chase bait to the surface."),
  ("What is included on a guided fishing trip?",
-  "A full 8 hour guided fishing trip, all fishing gear and equipment, lunch, customized start and end times to fit your schedule, and expert instruction and local knowledge. It suits beginners, families and experienced anglers."),
+  "A private full day charter for just your group: up to 6 hours of fishing (plan on about 8 hours with travel), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge. It suits beginners, families and experienced anglers."),
  ("How do I book a guided fishing trip in Southern Utah?",
   f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form on the Henrie Outfitters website. Customized trip packages are available."),
 ]
@@ -396,7 +397,7 @@ def hub_page():
 <li><strong>Trophy lake trout (Mackinaw):</strong> <a href="lakes/fish-lake.html">Fish Lake</a>, deep water fishing in Utah’s high country.</li>
 </ul></div></section>
 <section class="alt"><div class="wrap"><h2>How a guided trip works</h2>
-<p>A guided fishing trip with Henrie Outfitters is a full 8 hour day on the water. All fishing gear and equipment and lunch are provided, start and end times are customized to fit your schedule, and you get expert instruction and local knowledge. Trips suit beginners, families and experienced anglers, and customized trip packages are available.</p>
+<p>A guided fishing trip with Henrie Outfitters is a private full day charter: up to 6 hours of fishing, and about 8 hours with travel. Rods, tackle, bait and lures, life jackets, bottled water and ice are included, and fish are cleaned and bagged with ice if you want to keep them. Trips suit beginners, families and experienced anglers. See <a href="rates-and-policies.html">rates and policies</a>.</p>
 <p><a class="btn" href="./#contact"><span>Book a guided fishing trip</span><i>&rarr;</i></a></p></div></section>
 <section><div class="wrap"><h2>Southern Utah fishing questions</h2>{faq_html_block(HUB_FAQ)}</div></section>'''
     graph = [service_ld("Guided fishing trips in Southern Utah", desc, f"{BASE}{HUB['slug']}.html", LAKES), faq_ld(HUB_FAQ),
@@ -428,9 +429,9 @@ def species_page(sp):
 
 
 # ---------- National park trip pages (Zion, Bryce Canyon, Capitol Reef) ----------
-TRIP_INCLUDES = ("A guided trip with Henrie Outfitters is a full 8 hour day on the water with owner and guide James Henrie. "
-                 "All fishing gear and equipment and lunch are provided, start and end times are customized to fit your schedule, "
-                 "and you get expert instruction and local knowledge. Beginners, families and experienced anglers are all welcome.")
+TRIP_INCLUDES = ("A guided trip with Henrie Outfitters is a private full day charter with owner and guide James Henrie: up to 6 hours of fishing, so plan on about 8 hours with travel. "
+                 "Your boat, rods, tackle, bait and lures, life jackets, bottled water and ice are included, and fish are cleaned and bagged with ice if you want to keep them. "
+                 "Beginners, families and experienced anglers are all welcome.")
 
 PARKS = [
  dict(slug="fishing-near-zion-national-park", short="Zion", name="Zion National Park",
@@ -522,9 +523,21 @@ CEDAR = dict(slug="fishing-near-cedar-city-utah", short="Cedar City")
 FAQ_PAGE = dict(slug="fishing-trip-faqs", label="Fishing trip FAQs")
 
 FAQ_ALL = [
- ("What is included on a guided fishing trip?", "A full 8 hour guided fishing trip, all fishing gear and equipment, lunch, customized start and end times to fit your schedule, and expert instruction and local knowledge."),
- ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
- ("Can families and kids come along?", "Yes. Families are welcome, and the trip is built around your group."),
+ ("What is included on a guided fishing trip?", "A private full day charter for just your group: up to 6 hours of fishing (plan on about 8 hours with travel), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."),
+ ("How much does a guided fishing trip cost?", "Pricing is per boat, not per person, and every trip is a private charter for just your group. A full day is $1,050 for 1 to 2 anglers, $1,225 for 3 anglers and $1,400 for 4 anglers, which is the maximum per boat."),
+ ("How long is a full day?", "A full day is up to 6 hours of fishing time. With travel to the lakes, plan for about an 8 hour experience."),
+ ("Do you offer half day trips?", "We specialize in full day charters. Because of the 60 to 90 minute drive each way to our high elevation lakes, a full day gives you the most time on the water."),
+ ("Do I need fishing experience?", "No. Beginners are always welcome. We provide hands-on instruction and teach all gear and techniques."),
+ ("Can families and kids come along?", "Yes. Children are welcome and there is no minimum age, but we cannot take infants under 12 months because life jackets do not fit securely. We provide properly fitted life jackets, and children under 13 must wear one at all times in the boat."),
+ ("What do I need to bring?", "Your Utah fishing license, warm layers or weather appropriate clothes, sunscreen, sunglasses, a hat, snacks or lunch for your group, and a cooler to take your fish home in. Bottled water and ice are on the boat. Please leave dogs at home."),
+ ("Do I need a Utah fishing license?", "Yes. Each angler needs a valid Utah fishing license, which you buy yourself before the trip on the Utah Division of Wildlife Resources website. Please have it with you at the ramp."),
+ ("Do you require a deposit?", "Yes. A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle, and the balance is due the morning of your trip."),
+ ("What is your cancellation and weather policy?", "Cancel 3 or more days ahead for a full refund or a free reschedule. Cancellations within 3 days forfeit the deposit unless we can rebook your date. We fish in rain or shine, and if we cancel for lightning, high winds or unsafe conditions you can choose a full refund or a free reschedule."),
+ ("What time do trips start and where do we meet?", "We meet you at the lake, not in town. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. When you book, you receive an exact Google Maps pin for your boat ramp."),
+ ("Can I bring a dog?", "No. Because of insurance requirements and open hooks in a small boat, we cannot accommodate dogs."),
+ ("Can you take guests with limited mobility?", "Please call us. Many of our ramps are accessible and some are not, and we will recommend the best lake for your needs."),
+ ("Do you offer group trips, bachelor parties or birthday trips?", "Yes. Every trip is a private charter, and we host families, friends, corporate outings, bachelor parties and birthday celebrations. The maximum is 4 anglers per boat, and for larger groups we can coordinate multiple boats with other trusted local guides."),
+ ("Do you clean the fish?", "Yes. If you want to keep your catch within Utah Division of Wildlife Resources limits, we clean it and bag it with ice at no extra charge. Bring your own cooler. We also support catch and release for trophy fish."),
  ("Where do you guide fishing trips?", "At six Southern Utah lakes: Panguitch Lake, Sand Hollow Reservoir, Lake Powell, Gunlock Reservoir, Quail Creek Reservoir and Fish Lake."),
  ("What fish can I catch?", "Largemouth, smallmouth and striped bass, bluegill, crappie, catfish and walleye in the warm water lakes, and rainbow, cutthroat, tiger and lake trout (Mackinaw) and splake in the mountain lakes. Each lake page lists what is there."),
  ("Which lake should I choose?", "For numbers of largemouth bass, start with Sand Hollow. For striped bass and the widest variety, choose Lake Powell. For trophy trout, choose Panguitch Lake. For trophy lake trout (Mackinaw), choose Fish Lake."),
@@ -670,6 +683,66 @@ def faq_page():
     return root_page(FAQ_PAGE["slug"], title, desc, "Fishing Trip FAQs", "Southern Utah",
                      "What's included, who can come, which lake to pick and how to book.", body, graph, FAQ_PAGE["label"], photo=False)
 
+RATES_PAGE = dict(slug="rates-and-policies", label="Rates and policies")
+
+RATES_QA = [
+ ("How much does a guided fishing trip cost?", "Pricing is per boat, not per person. A full day is $1,050 for 1 to 2 anglers, $1,225 for 3 anglers and $1,400 for 4 anglers, which is the maximum per boat."),
+ ("How long is a full day?", "Up to 6 hours of fishing time. With travel to the lakes, plan for about an 8 hour experience."),
+ ("Do you require a deposit?", "Yes. A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle, and the balance is due the morning of your trip."),
+ ("What is your cancellation and weather policy?", "Cancel 3 or more days ahead for a full refund or a free reschedule. Cancellations within 3 days forfeit the deposit unless we can rebook your date. We fish in rain or shine, and if we cancel for lightning, high winds or unsafe conditions you can choose a full refund or a free reschedule."),
+ ("Is there a minimum age?", "No minimum age, and children are welcome. We cannot take infants under 12 months because life jackets do not fit securely. Children under 13 must wear a life jacket at all times in the boat."),
+ ("Can I bring a dog?", "No. Because of insurance requirements and open hooks in a small boat, we cannot accommodate dogs."),
+]
+
+def rates_page():
+    title = "Rates and Policies | Guided Fishing Trips | Henrie Outfitters"
+    desc = "Guided fishing rates, what's included, deposit, cancellation and weather policy, what to bring and license information for Henrie Outfitters in Cedar City, Utah. Call (435) 592-0680."
+    body = f"""<section><div class="wrap"><h2>Rates</h2>
+<p class="lead">Every trip is a private charter for just your group, and all pricing is per boat, not per person. A full day is up to 6 hours of fishing time. With travel to the lakes, plan for about an 8 hour experience.</p>
+<div class="tablewrap"><table class="spt rt"><thead><tr><th>Anglers</th><th>Full day, per boat</th></tr></thead><tbody>
+<tr><th scope="row">1 to 2 anglers</th><td>Starting at $1,050</td></tr>
+<tr><th scope="row">3 anglers</th><td>$1,225</td></tr>
+<tr><th scope="row">4 anglers (maximum per boat)</th><td>$1,400</td></tr></tbody></table></div>
+<p>All rods, tackle, bait and lures (a $150 value) and fish cleaning, bagged with ice (a $50 value), are included at no extra charge. What you see is what you pay.</p>
+<p><a class="btn" href="./#contact"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap two"><div>
+<h2>What is included</h2>
+<ul class="know"><li>Your boat and captain, owner and guide James Henrie</li><li>All rods, tackle, bait and lures</li><li>Properly fitted Coast Guard approved life jackets for adults and children</li><li>Bottled water and ice on the boat</li><li>Fish cleaning, bagged with ice, if you want to keep your catch</li><li>Hands-on instruction for beginners</li></ul>
+<h2>What to bring</h2>
+<ul class="know"><li>Your Utah fishing license</li><li>Weather appropriate clothes and warm layers</li><li>Sunscreen, sunglasses and a hat</li><li>Snacks or lunch for your group</li><li>A cooler to take your fish home in</li></ul>
+<p>Please leave dogs at home. Because of insurance requirements and open hooks in a small boat, we cannot accommodate dogs.</p></div>
+<div><h2>Fishing license</h2>
+<p>Each angler needs a valid Utah fishing license and is responsible for buying it before the trip. Licenses are sold online at the Utah Division of Wildlife Resources website, and you should have yours with you at the ramp.</p>
+<p>Utah adult license fees we have seen are $19 for a 3 day resident license, $40 for a 365 day resident license, $44 for a 3 day non-resident license and $120 for a 365 day non-resident license. Check the Division of Wildlife Resources for current prices.</p></div></div></section>
+<section><div class="wrap two"><div>
+<h2>Deposit and payment</h2>
+<p>A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle. The remaining balance is due the morning of your trip.</p>
+<h2>Cancellation and weather</h2>
+<p>Cancellations made 3 or more days in advance receive a full refund or a free reschedule. Cancellations within 3 days forfeit the deposit unless we are able to rebook your date.</p>
+<p>We fish in rain or shine. If we must cancel because of lightning, high winds or unsafe conditions, you can choose a full refund or a free reschedule.</p>
+<h2>When to book</h2>
+<p>We recommend booking 2 to 4 weeks in advance. June, July and early August are our busiest months, along with October for fall trophy season. Weekends book first, so weekdays have more availability.</p></div>
+<div><h2>Start times and meeting place</h2>
+<p>We meet you at the lake, not in town, to maximize your time fishing. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. When you book, you receive an exact Google Maps pin for your boat ramp.</p>
+<h2>Half day trips</h2>
+<p>We specialize in full day charters. Because of the 60 to 90 minute drive each way to our high elevation lakes, a full day gives you the most time on the water and the best fishing experience.</p>
+<h2>Groups and families</h2>
+<p>Every trip is a private charter. We host families, friends, corporate outings, bachelor parties and birthday celebrations. The maximum is 4 anglers per boat, and for larger groups we can coordinate multiple boats with other trusted local guides.</p>
+<h2>Kids, beginners and accessibility</h2>
+<p>Beginners are always welcome. Children are welcome with no minimum age, though we cannot take infants under 12 months because life jackets do not fit securely, and children under 13 wear a life jacket at all times in the boat. For guests with limited mobility, please call us. Many of our ramps are accessible and some are not, and we will recommend the best lake for your needs.</p></div></div></section>
+<section class="alt"><div class="wrap"><h2>Our boat and how we fish</h2>
+<p>We fish from our private 18 foot Klamath Alaskan boat, designed for stability and safety on large mountain reservoirs. On our mountain trout lakes we troll for trophy trout with downriggers, lead core and flat lines, and all gear is provided.</p>
+<p>If you keep fish, we clean them and bag them with ice at no extra charge. Keep fish within the Utah Division of Wildlife Resources limits for that lake. We also support catch and release for trophy fish.</p></div></section>
+<section><div class="wrap"><h2>Rates and policy questions</h2>{faq_html_block(RATES_QA)}
+<p><a class="btn" href="./#contact"><span>Book a guided trip</span><i>&rarr;</i></a></p></div></section>
+<section class="alt"><div class="wrap"><h2>Keep planning</h2><ul class="others">
+<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>
+<li><a href="{FAQ_PAGE["slug"]}.html">Fishing trip FAQs</a></li>
+<li><a href="{PARKS_HUB["slug"]}.html">Fishing on a Utah national parks trip</a></li></ul></div></section>"""
+    graph = [faq_ld(RATES_QA)]
+    return root_page(RATES_PAGE["slug"], title, desc, "Rates and Policies", "Henrie Outfitters LLC · Cedar City, Utah",
+                     "Private full day charters priced per boat. What is included, how deposits work, and what to bring.", body, graph, RATES_PAGE["label"], photo=False)
+
 def dd_index():
     items = "".join(f'<a href="lakes/{l["slug"]}.html">{E(l["name"])}</a>' for l in LAKES)
     return ('<div class="dd"><a class="ddlink" href="#lakes">Lakes</a>'
@@ -706,9 +779,9 @@ def main():
         (ROOT / f"{sp['slug']}.html").write_text(species_page(sp), encoding="utf-8")
     for pk in PARKS:
         (ROOT / f"{pk['slug']}.html").write_text(park_page(pk), encoding="utf-8")
-    for d, fn in ((PARKS_HUB, parks_hub_page), (ST_GEORGE, st_george_page), (CEDAR, cedar_page), (FAQ_PAGE, faq_page)):
+    for d, fn in ((PARKS_HUB, parks_hub_page), (ST_GEORGE, st_george_page), (CEDAR, cedar_page), (FAQ_PAGE, faq_page), (RATES_PAGE, rates_page)):
         (ROOT / f"{d['slug']}.html").write_text(fn(), encoding="utf-8")
-    urls = [BASE, f"{BASE}{HUB['slug']}.html"] + [f"{BASE}{sp['slug']}.html" for sp in SPECIES_PAGES] + [f"{BASE}{pk['slug']}.html" for pk in PARKS] + [f"{BASE}{d['slug']}.html" for d in (PARKS_HUB, ST_GEORGE, CEDAR, FAQ_PAGE)] + [BASE + "photos.html"] + [f"{BASE}lakes/{l['slug']}.html" for l in LAKES]
+    urls = [BASE, f"{BASE}{HUB['slug']}.html"] + [f"{BASE}{sp['slug']}.html" for sp in SPECIES_PAGES] + [f"{BASE}{pk['slug']}.html" for pk in PARKS] + [f"{BASE}{d['slug']}.html" for d in (PARKS_HUB, ST_GEORGE, CEDAR, FAQ_PAGE, RATES_PAGE)] + [BASE + "photos.html"] + [f"{BASE}lakes/{l['slug']}.html" for l in LAKES]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in urls) + "</urlset>\n"
     (ROOT / "sitemap.xml").write_text(sm)
@@ -721,7 +794,7 @@ def main():
     for l in LAKES:
         lines.append(f"- [{l['name']}]({BASE}lakes/{l['slug']}.html): {l['tagline']}, {l['angle'].lower()}. {l['hook']}")
     lines += ["", "## Guides by fish", "", f"- [Guided fishing in Southern Utah]({BASE}{HUB['slug']}.html): all six lakes, what you can catch where, FAQ"] + [f"- [{sp['label']} in Southern Utah]({BASE}{sp['slug']}.html): {sp['intro']}" for sp in SPECIES_PAGES]
-    lines += ["", "## Planning pages", "", f"- [Fishing on a Utah national parks trip]({BASE}{PARKS_HUB['slug']}.html): a guided fishing day between park days (Zion, Bryce Canyon, Capitol Reef)", f"- [Fishing near St. George]({BASE}{ST_GEORGE['slug']}.html): compare Sand Hollow, Quail Creek and Gunlock", f"- [Fishing near Cedar City]({BASE}{CEDAR['slug']}.html): mountain trout at Panguitch Lake", f"- [Fishing trip FAQs]({BASE}{FAQ_PAGE['slug']}.html): what is included, who can come, how to book"]
+    lines += ["", "## Planning pages", "", f"- [Fishing on a Utah national parks trip]({BASE}{PARKS_HUB['slug']}.html): a guided fishing day between park days (Zion, Bryce Canyon, Capitol Reef)", f"- [Fishing near St. George]({BASE}{ST_GEORGE['slug']}.html): compare Sand Hollow, Quail Creek and Gunlock", f"- [Fishing near Cedar City]({BASE}{CEDAR['slug']}.html): mountain trout at Panguitch Lake", f"- [Rates and policies]({BASE}{RATES_PAGE['slug']}.html): per boat pricing, what is included, deposit, cancellation, what to bring", f"- [Fishing trip FAQs]({BASE}{FAQ_PAGE['slug']}.html): what is included, who can come, how to book"]
     lines += ["", "## National park trips", ""] + [f"- [Fishing near {pk['short']}]({BASE}{pk['slug']}.html): {pk['sub']}" for pk in PARKS]
     lines += ["", "## Main site", "", f"- [Henrie Outfitters home]({BASE}): trips, lakes, guide, booking", f"- [Photos]({BASE}photos.html): photos from guided fishing trips", f"- [Instagram]({INSTAGRAM})", ""]
     (ROOT / "llms.txt").write_text("\n".join(lines))
