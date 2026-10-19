@@ -97,7 +97,6 @@ def lake_page(l):
     if l.get("details"):
         details_html = "<h3>Good to know</h3><ul class=\"know\">" + "".join(f"<li>{E(d)}</li>" for d in l["details"]) + "</ul>"
     url = f"{BASE}lakes/{l['slug']}.html"
-    # CONFIRM WITH JAMES: the nearby towns in each lake's "where"/"town" fields.
     if l["name"] == "Lake Powell":
         title = "Lake Powell Fishing Guide, Utah and Arizona | Henrie Outfitters"
     else:
@@ -423,7 +422,6 @@ def species_page(sp):
 
 
 # ---------- National park trip pages (Zion, Bryce Canyon, Capitol Reef) ----------
-# Facts that still need James's confirmation are marked CONFIRM in HTML comments.
 TRIP_INCLUDES = ("A guided trip with Henrie Outfitters is a full 8 hour day on the water with owner and guide James Henrie. "
                  "All fishing gear and equipment and lunch are provided, start and end times are customized to fit your schedule, "
                  "and you get expert instruction and local knowledge. Beginners, families and experienced anglers are all welcome.")
@@ -447,8 +445,7 @@ PARKS = [
       faq=[("Can you fish inside Zion National Park?", "This page covers guided trips on lakes near the park, not fishing inside it. Check the National Park Service website for current rules inside Zion."),
            ("Which lake is best for a Zion visitor?", "For bass and red rock scenery, start with Sand Hollow Reservoir. Gunlock Reservoir is smaller and quieter, Quail Creek Reservoir offers bass, crappie, bluegill and rainbow trout, and Navajo Lake is the choice for cooler mountain trout fishing."),
            ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included.")],
-      also=["bass-fishing-southern-utah", "trout-fishing-southern-utah"],
-      confirm="CONFIRM WITH JAMES: meeting points, half-day option, minimum age, group size, license requirements, which lakes he runs for Zion visitors, seasons."),
+      also=["bass-fishing-southern-utah", "trout-fishing-southern-utah"]),
  dict(slug="fishing-near-bryce-canyon", short="Bryce Canyon", name="Bryce Canyon National Park",
       title="Fishing Near Bryce Canyon | Guided Trout Trips | Henrie Outfitters",
       desc="Guided trout fishing near Bryce Canyon National Park on Panguitch Lake, with rainbow, cutthroat and tiger trout. Call (435) 592-0680 to book a fishing day.",
@@ -464,8 +461,7 @@ PARKS = [
       faq=[("Can you fish in Bryce Canyon National Park?", "This page covers guided trips on lakes near the park, not fishing inside it. Check the National Park Service website for current rules."),
            ("What fish can I catch near Bryce Canyon?", "On Panguitch Lake, rainbow, cutthroat and tiger trout. On Navajo Lake, rainbow and brook trout."),
            ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included.")],
-      also=["trout-fishing-southern-utah"],
-      confirm="CONFIRM WITH JAMES: meeting points, early-start options for visitors, seasons for Panguitch Lake, whether Navajo Lake is offered from this side."),
+      also=["trout-fishing-southern-utah"]),
  dict(slug="fishing-near-capitol-reef", short="Capitol Reef", name="Capitol Reef National Park",
       title="Fishing Near Capitol Reef National Park | Henrie Outfitters",
       desc="Guided fishing near Capitol Reef National Park: trophy lake trout at Fish Lake and variety on Lake Powell. Call (435) 592-0680 to book a fishing day.",
@@ -481,8 +477,7 @@ PARKS = [
       faq=[("Can you fish in Capitol Reef National Park?", "This page covers guided trips on lakes in the region, not fishing inside the park. Check the National Park Service website for current rules."),
            ("What can I catch at Fish Lake?", "Lake trout (Mackinaw), splake, rainbow trout, cutthroat trout and other trout."),
            ("Can I fish at Fish Lake in winter?", "In winter, Fish Lake becomes an ice fishing destination. Contact us to ask about winter trips.")],
-      also=["trout-fishing-southern-utah"],
-      confirm="CONFIRM WITH JAMES: distances and logistics from the Torrey side, whether Lake Powell is offered from this side, winter trip availability, meeting points."),
+      also=["trout-fishing-southern-utah"]),
 ]
 
 def park_page(pk):
@@ -500,8 +495,7 @@ def park_page(pk):
     also += "".join(f'<li><a href="{s}.html">{E(next(sp["label"] for sp in SPECIES_PAGES if sp["slug"] == s))} in Southern Utah</a></li>' for s in pk["also"])
     also += f'<li><a href="{PARKS_HUB["slug"]}.html">Fishing on a Utah national parks trip</a></li>'
     also += f'<li><a href="{HUB["slug"]}.html">All guided fishing trips in Southern Utah</a></li>'
-    body = f"""<!-- {pk["confirm"]} -->
-<section><div class="wrap"><h2>Fishing outside the park</h2><p class="lead">{E(pk["outside"])}</p></div></section>
+    body = f"""<section><div class="wrap"><h2>Fishing outside the park</h2><p class="lead">{E(pk["outside"])}</p></div></section>
 <section class="alt"><div class="wrap"><h2>Lakes that fit a {E(pk["short"])} trip</h2><p class="lead">{E(pk["lakes_intro"])}</p><div class="lgrid">{cards}</div></div></section>
 <section><div class="wrap"><h2>A fishing day between park days</h2><p>{E(pk["rest"])}</p><p>{E(TRIP_INCLUDES)}</p>
 <p><a class="btn" href="./#contact"><span>Book a guided fishing day</span><i>&rarr;</i></a></p></div></section>
@@ -545,8 +539,7 @@ def parks_hub_page():
                        f'<h3><a href="{pk["slug"]}.html">{E(pk["h1"])}</a></h3>'
                        f'<p>{E(pk["sub"])}</p><p class="note">Lakes: {E(lakes)}</p>'
                        f'<p><a class="more" href="{pk["slug"]}.html">See the trip &rarr;</a></p></article>')
-    body = f"""<!-- CONFIRM WITH JAMES: how far Moab-side visitors would travel, and whether he runs trips for Arches and Canyonlands visitors. -->
-<section><div class="wrap"><h2>A day on the water between park days</h2>
+    body = f"""<section><div class="wrap"><h2>A day on the water between park days</h2>
 <p class="lead">Utah's five national parks are Zion, Bryce Canyon, Capitol Reef, Arches and Canyonlands. A road trip through them is a lot of hiking, driving and viewpoints. A guided fishing day gives you a slower, different kind of day: a lake, a boat, and a local guide doing the planning.</p>
 <p>{E(TRIP_INCLUDES)}</p>
 <p>The fishing is on lakes in the region, outside the parks. Check the National Park Service for the rules inside each park.</p></div></section>
@@ -607,8 +600,7 @@ def st_george_page():
           ("Can I fish near St. George in winter?", "Sand Hollow offers year round bass fishing. Contact us to ask about winter trips at the other lakes."),
           ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
           ("How do I book a guided trip near St. George?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form.")]
-    body = f"""<!-- CONFIRM WITH JAMES: seasons at each lake, meeting points, and which lake he recommends to first-timers. -->
-<section><div class="wrap"><h2>Three lakes, three different days</h2>
+    body = f"""<section><div class="wrap"><h2>Three lakes, three different days</h2>
 <p class="lead">St. George is the hub for Southern Utah's red rock bass fishing. Sand Hollow, Quail Creek and Gunlock are close to town, and each one is a different experience. This page helps you choose.</p>
 {compare_table(slugs)}</div></section>
 <section class="alt"><div class="wrap sps">{sections}</div></section>
@@ -643,8 +635,7 @@ def cedar_page():
           ("Is there bass fishing near Cedar City?", "Our bass lakes are on the St. George side of Southern Utah: Sand Hollow, Quail Creek and Gunlock. See our guide to fishing near St. George."),
           ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
           ("How do I book?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form.")]
-    body = f"""<!-- CONFIRM WITH JAMES: which lakes he runs for Cedar City visitors, meeting points, and the best months for each lake. -->
-<section><div class="wrap"><h2>Mountain trout lakes near Cedar City</h2>
+    body = f"""<section><div class="wrap"><h2>Mountain trout lakes near Cedar City</h2>
 <p class="lead">If you are staying in or passing through Cedar City, the mountain lakes are where the trout fishing is. Both of these lakes are high-country trout waters, and each is a different kind of day.</p>
 {compare_table(slugs)}</div></section>
 <section class="alt"><div class="wrap sps">{sections}</div></section>
