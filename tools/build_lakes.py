@@ -533,7 +533,7 @@ FAQ_ALL = [
  ("Do I need a Utah fishing license?", "Yes. Each angler needs a valid Utah fishing license, which you buy yourself before the trip at wildlifelicense.utah.gov. Adult 3 day licenses are $19 for residents and $44 for non-residents, and 365 day licenses are $40 and $120, but prices can change, so please confirm on the Utah wildlife license site. Please have your license with you at the ramp."),
  ("Do you require a deposit?", "Yes. A 50% deposit secures your date. It is non-refundable but fully transferable to another date within 12 months. We accept cash, card and Zelle, and the balance is due the morning of your trip."),
  ("What is your cancellation and weather policy?", "Cancel 3 or more days ahead for a full refund or a free reschedule. Cancellations within 3 days forfeit the deposit unless we can rebook your date. We fish in rain or shine, and if we cancel for lightning, high winds or unsafe conditions you can choose a full refund or a free reschedule."),
- ("What time do trips start and where do we meet?", "We meet you at the lake, not in town. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. When you book, you receive an exact Google Maps pin for your boat ramp."),
+ ("What time do trips start and where do we meet?", "We meet you at the lake, not in town. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. We share the exact meeting location when you book. Depending on the season, we use different spots on each lake."),
  ("Can I bring a dog?", "No. Because of insurance requirements and open hooks in a small boat, we cannot accommodate dogs."),
  ("Can you take guests with limited mobility?", "Please call us. Many of our ramps are accessible and some are not, and we will recommend the best lake for your needs."),
  ("Do you offer group trips, bachelor parties or birthday trips?", "Yes. Every trip is a private charter, and we host families, friends, corporate outings, bachelor parties and birthday celebrations. The maximum is 4 anglers per boat, and for larger groups we can coordinate multiple boats with other trusted local guides."),
@@ -727,7 +727,7 @@ def rates_page():
 <h2>When to book</h2>
 <p>We recommend booking 2 to 4 weeks in advance. June, July and early August are our busiest months, along with October for fall trophy season. Weekends book first, so weekdays have more availability.</p></div>
 <div><h2>Start times and meeting place</h2>
-<p>We meet you at the lake, not in town, to maximize your time fishing. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. When you book, you receive an exact Google Maps pin for your boat ramp.</p>
+<p>We meet you at the lake, not in town, to maximize your time fishing. Summer trips typically start at 7:00 AM and fall trips at 8:00 AM. We share the exact meeting location when you book. Depending on the season, we use different spots on each lake.</p>
 <h2>Half day trips</h2>
 <p>We specialize in full day charters. Because of the 60 to 90 minute drive each way to our high elevation lakes, a full day gives you the most time on the water and the best fishing experience.</p>
 <h2>Groups and families</h2>
