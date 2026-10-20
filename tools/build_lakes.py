@@ -8,6 +8,15 @@ import json, html, datetime, pathlib
 
 BASE = "https://henrieoutfitters.com/"
 PHONE_DISPLAY, PHONE_TEL, EMAIL = "(435) 592-0680", "+14355920680", "henrieoutfitters@gmail.com"
+GTAG = '''<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PB3N7D4VTC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PB3N7D4VTC');
+</script>'''
 INSTAGRAM = "https://www.instagram.com/henrieoutfitters/"
 TODAY = datetime.date.today().isoformat()
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -153,6 +162,7 @@ def lake_page(l):
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/lake.css">
 {"".join(jl(g) for g in graph)}
+{GTAG}
 </head>
 <body>
 <header class="nav"><a class="brand" href="../"><img src="../assets/logo-96.webp" alt="Henrie Outfitters LLC logo" width="44" height="44">Henrie Outfitters</a>
@@ -243,6 +253,7 @@ def photos_page():
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/lake.css">
 {"".join(jl(g) for g in graph)}
+{GTAG}
 </head>
 <body>
 <header class="nav"><a class="brand" href="./"><img src="assets/logo-96.webp" alt="Henrie Outfitters LLC logo" width="44" height="44">Henrie Outfitters</a>
@@ -318,6 +329,7 @@ def root_page(slug, title, desc, h1, kicker, sub, body, graph, crumb_label, cta=
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/lake.css">
 {"".join(jl(x) for x in g)}
+{GTAG}
 </head>
 <body>
 <header class="nav"><a class="brand" href="./"><img src="assets/logo-96.webp" alt="Henrie Outfitters LLC logo" width="44" height="44">Henrie Outfitters</a>
