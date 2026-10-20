@@ -28,4 +28,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://mbh03.github.io/James/sitemap.xml
+Sitemap: https://henrieoutfitters.com/sitemap.xml

@@ -6,7 +6,7 @@ Change BASE when the site moves to a custom domain, then re-run.
 """
 import json, html, datetime, pathlib
 
-BASE = "https://mbh03.github.io/James/"
+BASE = "https://henrieoutfitters.com/"
 PHONE_DISPLAY, PHONE_TEL, EMAIL = "(435) 592-0680", "+14355920680", "henrieoutfitters@gmail.com"
 INSTAGRAM = "https://www.instagram.com/henrieoutfitters/"
 TODAY = datetime.date.today().isoformat()
