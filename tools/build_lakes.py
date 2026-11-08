@@ -34,10 +34,11 @@ LAKES = [
       experience=["Lake Powell feels less like fishing a lake and more like fishing an enormous canyon system. You run through narrow sandstone canyons, stop where bait is holding and cast for striped bass. When the stripers are schooling, the action can become frantic, with fish chasing bait right to the surface."],
       why="Massive water, endless canyon structure and the possibility of catching striped bass by the dozens when you find an active school.",
       species=["Striped bass", "Smallmouth bass", "Largemouth bass", "Walleye", "Crappie", "Catfish", "Bluegill"], access="Best fished by boat."),
- dict(slug="panguitch-lake", name="Panguitch Lake", where="near Panguitch and Cedar City, Utah", town="Panguitch",
+ dict(slug="panguitch-lake", name="Panguitch Lake", h1="Panguitch Lake Fishing Guide", where="near Panguitch and Cedar City, Utah", town="Panguitch",
       angle="Trophy trout hunting", tagline="Big Fish Reboot",
       hook="Fish the lake named \u2018Big Fish\u2019 for Southern Utah\u2019s trophy trout.",
-      experience=["Panguitch is built around one thing: trout. You can troll open water for cruising fish, work shorelines and structure, or target tiger trout and cutthroat with more aggressive presentations. The lake\u2019s high elevation and open basin make changing weather and conditions part of the experience."],
+      experience=["Panguitch Lake is in Garfield County in southern Utah, near the town of Panguitch and Bryce Canyon National Park. Henrie Outfitters runs private guided fishing charters here for visitors and locals.",
+                  "Panguitch is built around one thing: trout. You can troll open water for cruising fish, work shorelines and structure, or target tiger trout and cutthroat with more aggressive presentations. The lake\u2019s high elevation and open basin make changing weather and conditions part of the experience."],
       why="This is where you go when the goal is not simply catching trout but looking for a genuinely large Southern Utah trout.",
       species=["Rainbow trout", "Cutthroat trout", "Tiger trout"], access="Good boat access.",
       details=["Private full day charter, up to 6 hours of fishing (about 8 hours with travel, depending on where you are coming from)", "All rods, tackle, bait and lures provided",
@@ -100,6 +101,10 @@ def faq(l):
     if l["slug"] == "panguitch-lake":
         qa.insert(2, ("What is included on a guided fishing trip at Panguitch Lake?",
             "A private full day charter for just your group: up to 6 hours of fishing (about 8 hours with travel, depending on where you are coming from), your boat and captain, all rods, tackle, bait and lures, Coast Guard approved life jackets, bottled water and ice, fish cleaned and bagged with ice if you want to keep them, and expert instruction and local knowledge."))
+        qa.insert(3, ("How much does a Panguitch Lake fishing guide cost?",
+            "Pricing is per boat, not per person, and every trip is a private charter for just your group. A full day is $1,050 for 1 to 2 anglers, $1,225 for 3 anglers and $1,400 for 4 anglers, which is the maximum per boat."))
+        qa.insert(4, ("Do I need a Utah fishing license for Panguitch Lake?",
+            "Yes. Each angler needs a valid Utah fishing license, which you buy yourself before the trip at wildlifelicense.utah.gov. Adult 3 day licenses are $19 for residents and $44 for non-residents, and 365 day licenses are $40 and $120, but prices can change, so please confirm on the Utah wildlife license site."))
     return qa
 
 def sp_short(l):
@@ -116,11 +121,15 @@ def lake_page(l):
     url = f"{BASE}lakes/{l['slug']}.html"
     if l["name"] == "Lake Powell":
         title = "Lake Powell Fishing Guide, Utah and Arizona | Henrie Outfitters"
+    elif l["slug"] == "panguitch-lake":
+        title = "Panguitch Lake Fishing Guide | Trophy Trout | Henrie Outfitters"
     else:
         title = f"{l['name']} Fishing Guide near {l['town']}, UT | Henrie Outfitters"
     if len(title) > 70:
         title = f"{l['name']} Fishing Guide near {l['town']}, UT"
     desc = f"{l['hook']} Guided fishing trips at {l['name']}, {l['where']}, with Henrie Outfitters. Call {PHONE_DISPLAY}."
+    if l["slug"] == "panguitch-lake":
+        desc = f"Panguitch Lake fishing guide for rainbow, cutthroat and tiger trout. Private boat charters from $1,050, near Bryce Canyon. Call {PHONE_DISPLAY}."
     qa = faq(l)
     cur = ' aria-current="page"'
     dd_items = "".join(f'<a href="{o["slug"]}.html"{cur if o["slug"] == l["slug"] else ""}>{E(o["name"])}</a>' for o in LAKES)
@@ -131,7 +140,7 @@ def lake_page(l):
     graph = [
       {"@context": "https://schema.org", "@type": "Service", "name": f"Guided fishing trips at {l['name']}",
        "serviceType": "Guided fishing trip", "description": f"{l['tagline']}. {l['hook']} {l['experience'][0]}", "url": url,
-       "areaServed": {"@type": "Place", "name": f"{l['name']}, Utah"},
+       "areaServed": {"@type": "Place", "name": "Panguitch Lake, Garfield County, Utah" if l["slug"] == "panguitch-lake" else f"{l['name']}, Utah"},
        "provider": {**BUSINESS, "founder": {"@type": "Person", "name": "James Henrie"}}},
       {"@context": "https://schema.org", "@type": "FAQPage",
        "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in qa]},
@@ -171,7 +180,7 @@ def lake_page(l):
 <section class="hero"><div class="wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a> / <a href="../{HUB["slug"]}.html">{E(HUB["label"])}</a> / <span>{E(l["name"])}</span></nav>
 <p class="kicker">{E(l["angle"])} &middot; {E(l["where"])}</p>
-<h1>Guided fishing trips at {E(l["name"])}</h1>
+<h1>{E(l.get("h1", "Guided fishing trips at " + l["name"]))}</h1>
 <p class="sub">{E(l["hook"])}</p>
 <a class="btn" href="{book}"><span>Book a trip at {E(l["name"])}</span><i>&rarr;</i></a>
 </div></section>
@@ -358,7 +367,7 @@ def lake_cards_html(lakes):
         out += (f'<article class="lcard"><div class="lphoto">{lake_img(l["slug"])}</div><p class="eyebrow">{E(l["angle"])}</p>'
                 f'<h3><a href="lakes/{l["slug"]}.html">Guided fishing at {E(l["name"])}</a></h3>'
                 f'<p>{E(l["hook"])}</p><ul class="fish">{tags}</ul>'
-                f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+                f'<p><a class="more" href="lakes/{l["slug"]}.html">{E(l["name"])} fishing guide &rarr;</a></p></article>')
     return f'<div class="lgrid">{out}</div>'
 
 HUB_FAQ = [
@@ -429,7 +438,7 @@ def species_page(sp):
         sections += (f'<article class="spsec"><h2><a href="lakes/{l["slug"]}.html">{E(sp["short"].title())} fishing at {E(l["name"])}</a></h2>'
                      f'<p class="eyebrow">{E(l["tagline"])}</p><p>{E(l["experience"][0])}</p><p><strong>Why fish it:</strong> {E(l["why"])}</p>'
                      f'<ul class="fish">{"".join(f"<li>{E(s)}</li>" for s in fish)}</ul>'
-                     f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+                     f'<p><a class="more" href="lakes/{l["slug"]}.html">{E(l["name"])} fishing guide &rarr;</a></p></article>')
     qa = [(f"Where can I go {sp['short']} fishing in Southern Utah with a guide?", f"Henrie Outfitters guides {sp['short']} fishing trips at {names}."),
           ("How do I book?", f"Call or text {PHONE_DISPLAY}, email {EMAIL}, or use the booking form on the Henrie Outfitters website.")]
     body = f'''<section><div class="wrap"><h2>{E(sp["label"])} at {len(lakes)} lakes</h2><p class="lead">{E(sp["intro"])}</p></div></section>
@@ -506,7 +515,7 @@ def park_page(pk):
         cards += (f'<article class="lcard"><p class="eyebrow">{E(l["angle"])}</p>'
                   f'<h3><a href="lakes/{l["slug"]}.html">Guided fishing at {E(l["name"])}</a></h3>'
                   f'<p>{E(why)}</p><ul class="fish">{tags}</ul>'
-                  f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+                  f'<p><a class="more" href="lakes/{l["slug"]}.html">{E(l["name"])} fishing guide &rarr;</a></p></article>')
     others = [x for x in PARKS if x is not pk]
     also = "".join(f'<li><a href="{x["slug"]}.html">Fishing near {E(x["short"])}</a></li>' for x in others)
     also += "".join(f'<li><a href="{s}.html">{E(next(sp["label"] for sp in SPECIES_PAGES if sp["slug"] == s))} in Southern Utah</a></li>' for s in pk["also"])
@@ -624,7 +633,7 @@ def st_george_page():
         l = lake[s]
         sections += (f'<article class="spsec"><h2><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></h2><p class="eyebrow">{E(l["tagline"])}</p>'
                      f'<p>{E(why[s])}</p><ul class="fish">{"".join(f"<li>{E(x)}</li>" for x in l["species"])}</ul>'
-                     f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+                     f'<p><a class="more" href="lakes/{l["slug"]}.html">{E(l["name"])} fishing guide &rarr;</a></p></article>')
     qa = [("Which lake near St. George is best for bass?", "Sand Hollow Reservoir is the one to start with for numbers of largemouth bass. Quail Creek Reservoir can produce big largemouth in clear water, and Gunlock Reservoir is a smaller, quieter option."),
           ("Can I fish near St. George in winter?", "Sand Hollow offers year round bass fishing. Contact us to ask about winter trips at the other lakes."),
           ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
@@ -658,7 +667,7 @@ def cedar_page():
         l = lake[s]
         sections += (f'<article class="spsec"><h2><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></h2><p class="eyebrow">{E(l["tagline"])}</p>'
                      f'<p>{E(why[s])}</p><ul class="fish">{"".join(f"<li>{E(x)}</li>" for x in l["species"])}</ul>'
-                     f'<p><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a></p></article>')
+                     f'<p><a class="more" href="lakes/{l["slug"]}.html">{E(l["name"])} fishing guide &rarr;</a></p></article>')
     qa = [("What kind of fishing is near Cedar City?", "Mountain trout fishing. Panguitch Lake offers rainbow, cutthroat and tiger trout."),
           ("Is there bass fishing near Cedar City?", "Our bass lakes are on the St. George side of Southern Utah: Sand Hollow, Quail Creek and Gunlock. See our guide to fishing near St. George."),
           ("Do I need fishing experience?", "No. Trips suit beginners, families and experienced anglers, and expert instruction is included."),
@@ -771,7 +780,7 @@ def cards_html():
         tags = "".join(f"<li>{E(s)}</li>" for s in l["species"])
         out.append(f'''    <article class="lakeitem reveal">
       <div class="lphoto">{lake_img(l["slug"])}<span class="num">{n:02d}</span></div>
-      <div class="lbody"><span class="angle">{E(l["angle"])}</span><h3><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></h3><p class="hook">{E(l["hook"])}</p><ul class="fish">{tags}</ul><a class="more" href="lakes/{l["slug"]}.html">Lake details &rarr;</a><a class="btn" href="#contact" data-lake="{E(l["name"])}"><span>Book a trip here</span><i>&rarr;</i></a></div>
+      <div class="lbody"><span class="angle">{E(l["angle"])}</span><h3><a href="lakes/{l["slug"]}.html">{E(l["name"])}</a></h3><p class="hook">{E(l["hook"])}</p><ul class="fish">{tags}</ul><a class="more" href="lakes/{l["slug"]}.html">{E(l["name"])} fishing guide &rarr;</a><a class="btn" href="#contact" data-lake="{E(l["name"])}"><span>Book a trip here</span><i>&rarr;</i></a></div>
     </article>
 ''')
     return "".join(out)
